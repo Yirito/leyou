@@ -14,6 +14,7 @@ public enum ExceptionEnum {
      * 多个枚举按照,隔开，最后一个必须为;
      */
     PRICE_CANNOT_BE_NULL(400, "价格不能为空"),
+    CATEGORY_NOT_FOND(404,"商品分类没有查到"),
     ;
     private int code;
     private String msg;
