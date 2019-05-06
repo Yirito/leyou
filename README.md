@@ -5,6 +5,7 @@ ly-common复用工具类组件
 ly-item有interface和service，一个用来对外告诉自身的pojo构造函数，一个用来实现（不对外）。
 
 /////////////////////////////////////插件///////////////////////////////////////////  
+通用mapper和分页助手也真的很好用，只要是单个数据库查询的，都可以使用通用mapper    
 lombok真的很好用  
 @Getter//为非final字段添加  
 @NoArgsConstructor //自动生成无参数构造函数。  
@@ -25,4 +26,7 @@ CORS原理，分为简单请求和特殊请求。
 信息头不超过以下几个，Accept、Accept-Language、Content-Language、Last-Event-ID、Content-Type只能三个值之一：application/x-www-form-urlencoded、multipart/form-data、text/plain  
 其底层依然是ajax，凡是不符合上诉条件的，就为特殊请求。  
 当浏览器发现是简单请求时，会添加origin字段，后面跟着跨域网址，后台需要识别，若是对的话，返回Access-Control-Allow-Origin和Access-Control-Allow-Credentials，即可跨域访问  
-特殊请求需要先预检请求，也就是发两次请求，返回有一大堆东西、
+特殊请求需要先预检请求，也就是发两次请求，返回有一大堆东西、  
+
+/////////////////////////////////后记//////////////////////////////////////////////  
+多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的  

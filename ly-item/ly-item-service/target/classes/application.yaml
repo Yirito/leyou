@@ -11,3 +11,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印数据库语句，可以选择用什么打印，这里选择slf4j
