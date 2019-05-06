@@ -12,10 +12,13 @@ public enum ExceptionEnum {
     /**
      * 这个为构造函数，简化的构造函数 private static final ExceptionEnum ff = new ExceptionEnum(1,"123");
      * 多个枚举按照,隔开，最后一个必须为;
+     * <p>
+     * 注意，状态码需要符合REST风格
      */
     PRICE_CANNOT_BE_NULL(400, "价格不能为空"),
-    CATEGORY_NOT_FOND(404,"商品分类没有查到"),
-    BRAND_NOT_FOUND(404,"品牌不存在"),
+    CATEGORY_NOT_FOND(404, "商品分类没有查到"),
+    BRAND_NOT_FOUND(404, "品牌不存在"),
+    BRAND_SAVE_ERROR(500, "新增品牌失败"),
     ;
     private int code;
     private String msg;

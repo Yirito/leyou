@@ -11,6 +11,7 @@ import com.leyou.item.pojo.Brand;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
@@ -52,5 +53,29 @@ public class BrandService {
         PageInfo<Brand> info = new PageInfo<>(list);
         //返回页数和数据
         return new PageResult<>(info.getTotal(), list);
+    }
+
+    /**
+     * 因为是复杂语句，需要增加事务Transactional
+     * 查询不用增加事务
+     *
+     * @param brand
+     * @param cids
+     */
+    @Transactional
+    public void saveBrand(Brand brand, List<Long> cids) {
+        //新增品牌
+        brand.setId(null);//设不设置无所谓，看insert源码
+        int count = brandMapper.insert(brand);
+        if (count != 1) {
+            throw new LyException(ExceptionEnum.BRAND_SAVE_ERROR);
+        }
+        //新增中间表  mapper只能实现单表，中间表什么的都需要我们自己写
+        for (Long cid : cids) {
+            int i = brandMapper.insertCategoryBrand(cid, brand.getId());
+            if (i != 1) {
+                throw new LyException(ExceptionEnum.BRAND_SAVE_ERROR);
+            }
+        }
     }
 }

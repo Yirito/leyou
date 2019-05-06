@@ -4,11 +4,11 @@ import com.leyou.common.vo.PageResult;
 import com.leyou.item.pojo.Brand;
 import com.leyou.item.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("brand")
@@ -37,5 +37,22 @@ public class BrandController {
     ) {
         PageResult<Brand> result = brandService.queryBrandByPage(page, rows, sortBy, desc, key);
         return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 新增品牌
+     * <p>
+     * ResponseEntity<Void>无返回结果
+     * <p>
+     * Brand只能接受三个参数，此时增加一个@RequestParam，再接收多一个参数，因为接收的cids格式是：15,156,85这样的数组，使用List时，spring自动转为List
+     *
+     * @param brand
+     * @param cids
+     * @return
+     */
+    @PostMapping
+    public ResponseEntity<Void> saveBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
+        brandService.saveBrand(brand, cids);
+        return ResponseEntity.status(HttpStatus.CREATED).build();//新增无返回结果CREATED=》201，build也是没有结果。
     }
 }
