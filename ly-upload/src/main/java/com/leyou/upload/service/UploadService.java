@@ -35,7 +35,7 @@ public class UploadService {
             //目标路径
             //this.getClass().getClassLoader().getResource("").getFile()
             //File dest = new File("/dlion/upload/", file.getOriginalFilename());//获取项目路径
-            File dest = new File("C:/dlion/upload/");
+            File dest = new File("C:/dlion/upload",file.getOriginalFilename());
             //保存文件到本地
             file.transferTo(dest);
             //返回路径

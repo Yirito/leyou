@@ -11,6 +11,12 @@ zuul:
   prefix: /api #添加路由前缀
   routes:
     item-service: /item/** #将商品微服务映射到/item/**
+    #设置upload的映射路径，禁止忽略路由前缀strip-prefix: false，不加item的直接localhost:10010/api/upload/image，后面还需要在前面添加/zuul
+    #/zuul作用时虽然经过网关，但不用去缓存上传文件，减轻压力。可在Nginx配置rewrite，但这里直接在浏览器前加 localhost:10010/zuul/api/load/image
+    upload-service:
+      path: /upload/**
+      serviceId: upload-service
+      strip-prefix: false
 hystrix:
   command:
     default:

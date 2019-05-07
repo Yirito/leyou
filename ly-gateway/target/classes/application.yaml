@@ -11,6 +11,11 @@ zuul:
   prefix: /api #添加路由前缀
   routes:
     item-service: /item/** #将商品微服务映射到/item/**
+    #设置upload的映射路径，不加item的直接
+    upload-service:
+      path: /upload/**
+      serviceId: upload-service
+      strip-prefix: false
 hystrix:
   command:
     default:
