@@ -22,6 +22,7 @@ public enum ExceptionEnum {
     UPLOAD_FILE_ERROR(500, "文件上传失败"),
     INVALID_FILE_TYPE(500, "无效的文件类型"),
     SPEC_GROUP_NOT_FOUND(404, "商品规格组不存在"),
+    SPEC_PARAM_NOT_FOUND(404, "商品规格参数不存在"),
     ;
     private int code;
     private String msg;
