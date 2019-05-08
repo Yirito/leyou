@@ -6,6 +6,7 @@ import tk.mybatis.mapper.annotation.KeySql;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//数据库没有这个表
 @Data
 @Table(name = "tb_spec_group")
 public class SpecGroup {
