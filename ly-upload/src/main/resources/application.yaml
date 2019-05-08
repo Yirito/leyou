@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8086
 spring:
   application:
     name: upload-service
@@ -22,7 +22,7 @@ fdfs:
     width: 60
     height: 60
   tracker-list: #tracker地址
-    - 192.168.58.101::221222
+    - 192.168.58.101::22122
 ly: #自定义属性。就把代码中的常量抽取出来
   upload:
     baseUrl: http://image.leyou.com/

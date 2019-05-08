@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8086
 spring:
   application:
     name: upload-service
@@ -14,3 +14,19 @@ eureka:
   instance:
     ip-address: 127.0.0.1
     prefer-ip-address: true #防止拿到主机名，只能是127.0.0.1
+#fdfs配置文件
+fdfs:
+  so-timeout: 2500
+  connect-timeout: 600
+  thumb-image: #缩略图
+    width: 60
+    height: 60
+  tracker-list: #tracker地址
+    - 192.168.58.101::22122
+ly: #自定义属性。就把代码中的常量抽取出来
+  upload:
+    baseUrl: http://image.leyou.com/
+    allowTypes:
+      - image/jpeg
+      - image/png
+      - image/bmp
