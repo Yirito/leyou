@@ -37,5 +37,6 @@ CORS原理，分为简单请求和特殊请求。
 特殊请求需要先预检请求，也就是发两次请求，返回有一大堆东西、  
 
 /////////////////////////////////后记//////////////////////////////////////////////  
-多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的  
+多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
+StringUtils.join拼接字符串 ,Arrays.asList(spu.getCid1(), spu.getCid2(), spu.getCid3())加入List,
   
