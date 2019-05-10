@@ -86,4 +86,21 @@ public class BrandService {
         }
         return brand;
     }
+
+    /**
+     * 这里有个中间表
+     * sql自己写,两边关联
+     * <p>
+     * SELECT b.* FROM tb_category_brand cb INNER JOIN tb_brand b ON b.id = cb.brand_id WHERE cb.category_id = = ?
+     *
+     * @param cid
+     * @return
+     */
+    public List<Brand> queryByCid(Long cid) {
+        List<Brand> list = brandMapper.queryByCategoryId(cid);
+        if (CollectionUtils.isEmpty(list)) {
+            throw new LyException(ExceptionEnum.BRAND_NOT_FOUND);
+        }
+        return list;
+    }
 }
