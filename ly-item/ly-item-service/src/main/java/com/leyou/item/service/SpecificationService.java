@@ -43,4 +43,17 @@ public class SpecificationService {
         }
         return list;
     }
+
+    public List<SpecParam> queryParamList(Long gid, Long cid, Boolean searching) {
+        SpecParam param = new SpecParam();
+        //上面三个参数都有可能是空，但因为通用mapper的select是根据非空进行查询的，所以你传哪个就查哪个
+        param.setGroupId(gid);
+        param.setCid(cid);
+        param.setSearching(searching);
+        List<SpecParam> list = paramMapper.select(param);
+        if (CollectionUtils.isEmpty(list)) {
+            throw new LyException(ExceptionEnum.SPEC_PARAM_NOT_FOUND);
+        }
+        return list;
+    }
 }

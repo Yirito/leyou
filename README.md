@@ -6,6 +6,9 @@ ly-item有interface和service，一个用来对外告诉自身的pojo构造函�
 
 /////////////////////////////////////插件///////////////////////////////////////////  
 通用mapper和分页助手也真的很好用，只要是单个数据库查询的，都可以使用通用mapper    
+mapper接口继承的类有很多，现在举个例子：IdListMapper（根据批量id查询、删除），Mapper（通用mapper，包含各种普通新增改查）,InsertListMapper(批量新增)。
+请注意，这些继承的，有些包是不同的，所以功能不同。就比如InsertListMapper，有两个包，一个只可以识别id进行批量新增，一个可以不是id批量新增 
+
 lombok真的很好用  
 @Getter//为非final字段添加  
 @NoArgsConstructor //自动生成无参数构造函数。  

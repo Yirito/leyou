@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
 /**
  * spu表
@@ -38,12 +39,18 @@ public class Spu {
     /**
      * 是persistence.Transient;
      * 不是javaBean的Transient包
-     * 告诉通用mapper，这个不用转为数据库字段，因为数据库没有这两个字段
-     * 正常开发不能写成这样，要写vo层。
+     * 告诉通用mapper，这个不用转为数据库字段，因为数据库没有这几个字段
+     * ①、正常开发不能写成这样，要写vo层。
      * 不能告诉别人你数据库是什么，vo层和这个实体类很像，但名字比如cid1，要改为不认识的，比如spId。这样就能防止别人知道你数据库结构了
+     * ②、这样新增这些字段为了方便保存，就不用转表了
      */
     @Transient
     private String cName;
     @Transient
     private String bName;
+
+    @Transient
+    private List<Sku> skus;
+    @Transient
+    private SpuDetail spuDetail;
 }
