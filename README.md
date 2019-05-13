@@ -37,7 +37,13 @@ CORS原理，分为简单请求和特殊请求。
 信息头不超过以下几个，Accept、Accept-Language、Content-Language、Last-Event-ID、Content-Type只能三个值之一：application/x-www-form-urlencoded、multipart/form-data、text/plain  
 其底层依然是ajax，凡是不符合上诉条件的，就为特殊请求。  
 当浏览器发现是简单请求时，会添加origin字段，后面跟着跨域网址，后台需要识别，若是对的话，返回Access-Control-Allow-Origin和Access-Control-Allow-Credentials，即可跨域访问  
-特殊请求需要先预检请求，也就是发两次请求，返回有一大堆东西、  
+特殊请求需要先预检请求，也就是发两次请求，返回有一大堆东西、   
+
+////////////////////////////Elasticsearch/////////////////////////////////////////  
+官网：https://www.elastic.co/cn/    
+了解solr，毕竟也是搜索，但配置麻烦，而且有延时，技多不压身  
+当数据达到PB级别时，数据库全文查找将会有延时，而elasticsearch近实时搜索，并且遵循rest原则、而且分布式，无需人工搭建集群  
+
 
 /////////////////////////////////后记//////////////////////////////////////////////  
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
