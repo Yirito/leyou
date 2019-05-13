@@ -28,6 +28,8 @@ public enum ExceptionEnum {
     SPEC_GROUP_NOT_FOUND(404, "商品规格组不存在"),
     SPEC_PARAM_NOT_FOUND(404, "商品规格参数不存在"),
     GOODS_SAVE_ERROR(500, "新增商品失败"),
+    GOODS_UPDATE_ERROR(500, "更新商品失败"),
+    GOODS_ID_CANNOT_BE_NULL(400, "商品id不能为空"),
     ;
     private int code;
     private String msg;

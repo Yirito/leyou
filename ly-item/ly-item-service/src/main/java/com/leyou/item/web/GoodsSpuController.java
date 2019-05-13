@@ -69,4 +69,16 @@ public class GoodsSpuController {
     public ResponseEntity<List<Sku>> querySkuBySpuId(@RequestParam("id") Long spuId) {
         return ResponseEntity.ok(goodsSpuService.querySkuBySpuId(spuId));
     }
+
+    /**
+     * 商品修改
+     *
+     * @param spu
+     * @return
+     */
+    @PutMapping("goods")
+    public ResponseEntity<Void> updateGoods(@RequestBody Spu spu) {
+        goodsSpuService.updateGoods(spu);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

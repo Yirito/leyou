@@ -111,6 +111,11 @@ public class GoodsSpuService {
         if (i != 1) {
             throw new LyException(ExceptionEnum.GOODS_SAVE_ERROR);
         }
+
+        saveSkuAndStock(spu);
+    }
+
+    private void saveSkuAndStock(Spu spu) {
         List<Stock> stockList = new ArrayList<>();
         //新增sku
         List<Sku> skus = spu.getSkus();
@@ -176,7 +181,43 @@ public class GoodsSpuService {
         }
         //我们把stock变成一个map，其key是:sku的id，值是库存值
         Map<Long, Integer> stockMap = stockList.stream().collect(Collectors.toMap(Stock::getSkuId, Stock::getStock));
-        skuList.forEach(s ->s.setStock(stockMap.get(s.getId())));
+        skuList.forEach(s -> s.setStock(stockMap.get(s.getId())));
         return skuList;
+    }
+
+    @Transactional
+    public void updateGoods(Spu spu) {
+        if (spu.getId() == null) {
+            throw new LyException(ExceptionEnum.GOODS_ID_CANNOT_BE_NULL);
+        }
+        Sku sku = new Sku();
+        sku.setSpuId(spu.getId());
+        //查询sku
+        List<Sku> skuList = skuMapper.select(sku);
+        if (!CollectionUtils.isEmpty(skuList)) {
+            //删除sku
+            skuMapper.delete(sku);
+            //删除stock
+            List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());
+            stockMapper.deleteByIdList(ids);
+        }
+        //修改spu
+        spu.setValid(null);
+        spu.setSaleable(null);
+        spu.setLastUpdateTime(new Date());
+        spu.setCreateTime(null);
+
+        int count = spuMapper.updateByPrimaryKeySelective(spu);
+        if (count != 1) {
+            throw new LyException(ExceptionEnum.GOODS_UPDATE_ERROR);
+        }
+
+        //修改detail
+        int i = spuDetailMapper.updateByPrimaryKeySelective(spu.getSpuDetail());
+        if (i != 1) {
+            throw new LyException(ExceptionEnum.GOODS_UPDATE_ERROR);
+        }
+        //新增sku和stock
+        saveSkuAndStock(spu);
     }
 }
