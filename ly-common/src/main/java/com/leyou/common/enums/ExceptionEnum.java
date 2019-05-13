@@ -19,6 +19,8 @@ public enum ExceptionEnum {
     CATEGORY_NOT_FOND(404, "商品分类没有查到"),
     GOODS_NOT_FOND(404, "商品不存在"),
     GOODS_DETAIL_NOT_FOND(404, "商品详情不存在"),
+    GOODS_SKU_NOT_FOND(404, "商品SKU不存在"),
+    GOODS_STOCK_NOT_FOND(404, "商品库存不存在"),
     BRAND_NOT_FOUND(404, "品牌不存在"),
     BRAND_SAVE_ERROR(500, "新增品牌失败"),
     UPLOAD_FILE_ERROR(500, "文件上传失败"),

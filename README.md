@@ -41,5 +41,12 @@ CORS原理，分为简单请求和特殊请求。
 
 /////////////////////////////////后记//////////////////////////////////////////////  
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
-StringUtils.join拼接字符串 ,Arrays.asList(spu.getCid1(), spu.getCid2(), spu.getCid3())加入List,
+StringUtils.join拼接字符串 ,Arrays.asList(spu.getCid1(), spu.getCid2(), spu.getCid3())加入List,  
+
+JDK1.8流的用法:   
+//我们把stock变成一个map，其key是:sku的id，值是库存值  
+Map<Long, Integer> stockMap = stockList.stream().collect(Collectors.toMap(Stock::getSkuId, Stock::getStock));  
+skuList.forEach(s ->s.setStock(stockMap.get(s.getId())));  
+
+List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());
   
