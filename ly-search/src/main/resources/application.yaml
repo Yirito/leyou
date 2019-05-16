@@ -1,0 +1,17 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: search-service
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 127.0.0.1:9300
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5 #5秒拉取
+  instance: #使用真实地址，而不是计算机名字什么的
+    prefer-ip-address: true
+    ip-address: 127.0.0.1

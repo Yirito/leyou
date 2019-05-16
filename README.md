@@ -43,9 +43,12 @@ CORS原理，分为简单请求和特殊请求。
 官网：https://www.elastic.co/cn/    
 了解solr，毕竟也是搜索，但配置麻烦，而且有延时，技多不压身  
 当数据达到PB级别时，数据库全文查找将会有延时，而elasticsearch近实时搜索，并且遵循rest原则、而且分布式，无需人工搭建集群   
-其底层需要依赖java，所以把这个配置java虚拟机内存调小点，不然会很卡。配置jvm.options设置内存，设置elasticsearch.yml设置名字、集群、地址、端口等，他默认端口是9200，http端口。还会启动一个9300端口，这个是tcp端口，集群通信用的。  
-  
-  
+其底层需要依赖java，基于Lucene实现，所以把这个配置java虚拟机内存调小点，不然会很卡。配置jvm.options设置内存，设置elasticsearch.yml设置名字、集群、地址、端口等，他默认端口是9200，http端口。还会启动一个9300端口，这个是tcp端口，集群通信用的。  
+因为这个没有界面，需要安装插件，不过一般安装Kibana，其底层依赖node.js，也是在那个官网下载，他这也有个kibana.yml文件，用以修改连接elasticsearch地址的。其默认端口为5601。  
+另外还需要安装ik分词器，属于elasticsearch插件，用以中文分词  
+ik分词器"analyzer": "ik_smart"用以人性化分类，而ik_max_word则细分。elasticsearch并且支持http的rest风格访问。   
+
+elasticsearch需要创建索引，其实类似mysql      
 
 
 /////////////////////////////////后记//////////////////////////////////////////////  
