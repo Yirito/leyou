@@ -8,6 +8,8 @@ spring:
       cluster-name: elasticsearch
       cluster-nodes: 127.0.0.1:9300
   main:
+    #Feign的注册，有同名的feign的名字重复注册，相同的name也就是跨服务调用，同一个服务的接口，不能分散的写在多个接口类中.
+    #要放到同一个借口类中定义调用。这里true允许重复注册
     allow-bean-definition-overriding: true
 eureka:
   client:
