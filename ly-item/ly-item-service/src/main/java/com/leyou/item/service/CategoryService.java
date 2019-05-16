@@ -32,7 +32,7 @@ public class CategoryService {
     }
 
     /**
-     * 根据ids获取品牌
+     * 根据ids获取商品分类
      * @param ids
      * @return
      */
