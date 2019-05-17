@@ -55,12 +55,13 @@ elasticsearch需要创建索引，其实类似mysql
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
 StringUtils.join拼接字符串 ,Arrays.asList(spu.getCid1(), spu.getCid2(), spu.getCid3())加入List,  
 
-JDK1.8流的用法:   
+JDK1.8流的用法,比for好用:   
 //我们把stock变成一个map，其key是:sku的id，值是库存值  
 Map<Long, Integer> stockMap = stockList.stream().collect(Collectors.toMap(Stock::getSkuId, Stock::getStock));  
 skuList.forEach(s ->s.setStock(stockMap.get(s.getId())));  
 
-List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());后面这个toList可以改需要的类型，如toSet    
+List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());后面这个toList可以改需要的类型，如toSet  
+spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可以放入方法searchService::buildGoods，返回值为Goods        
 
 注释的TODO很好用，不但可以高亮注释代码，还会在idea上提示你需要todo的事情，将来你忘了要做什么的时候，直接点开左下角的todo就可以看到你标记过的东西
   

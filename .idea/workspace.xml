@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a49285e1-1a9f-4a01-aa18-5f0671f17be2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ly-search/src/main/java/com/leyou/search/service/SearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ly-search/src/test/java/com/leyou/search/repository/GoodsRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-search/src/test/java/com/leyou/search/repository/GoodsRepositoryTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/ly-registry/target/" />
     <ignored path="$PROJECT_DIR$/ly-gateway/target/" />
@@ -47,7 +46,7 @@
         <counts>
           <entry key="class" value="9" />
           <entry key="iml" value="1" />
-          <entry key="java" value="215" />
+          <entry key="java" value="216" />
           <entry key="json" value="1" />
           <entry key="md" value="8" />
           <entry key="xml" value="28" />
@@ -58,7 +57,7 @@
         <counts>
           <entry key="CLASS" value="9" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="215" />
+          <entry key="JAVA" value="216" />
           <entry key="JSON" value="1" />
           <entry key="Markdown" value="8" />
           <entry key="XML" value="28" />
@@ -68,18 +67,18 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="java" value="14372" />
+          <entry key="java" value="14692" />
           <entry key="json" value="28" />
-          <entry key="md" value="2710" />
+          <entry key="md" value="2741" />
           <entry key="xml" value="308" />
           <entry key="yaml" value="1176" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="14371" />
+          <entry key="JAVA" value="14691" />
           <entry key="JSON" value="29" />
-          <entry key="Markdown" value="2710" />
+          <entry key="Markdown" value="2741" />
           <entry key="PLAIN_TEXT" value="11" />
           <entry key="XML" value="308" />
           <entry key="YAML" value="1176" />
@@ -92,14 +91,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ly-search/src/test/java/com/leyou/search/repository/GoodsRepositoryTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+            <state relative-caret-position="530">
+              <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ly-common/src/main/java/com/leyou/common/vo/PageResult.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -116,11 +124,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ly-search/src/main/java/com/leyou/search/service/SearchService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="108" column="67" lean-forward="true" selection-start-line="108" selection-start-column="67" selection-end-line="108" selection-end-column="67" />
+            <state relative-caret-position="400">
+              <caret line="139" column="49" lean-forward="true" selection-start-line="139" selection-start-column="49" selection-end-line="139" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -159,8 +167,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="326">
-                <caret line="62" column="107" selection-start-line="62" selection-start-column="107" selection-end-line="62" selection-end-column="107" />
+              <first_editor relative-caret-position="546">
+                <caret line="63" column="121" selection-start-line="63" selection-start-column="121" selection-end-line="63" selection-end-column="121" />
               </first_editor>
               <second_editor />
             </state>
@@ -262,9 +270,9 @@
         <option value="$PROJECT_DIR$/ly-item/ly-item-interface/src/main/java/com/leyou/item/api/GoodsApi.java" />
         <option value="$PROJECT_DIR$/ly-search/src/main/resources/application.yaml" />
         <option value="$PROJECT_DIR$/ly-search/src/main/java/com/leyou/search/repository/GoodsRepository.java" />
-        <option value="$PROJECT_DIR$/ly-search/src/test/java/com/leyou/search/repository/GoodsRepositoryTest.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/ly-search/src/main/java/com/leyou/search/service/SearchService.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/ly-search/src/test/java/com/leyou/search/repository/GoodsRepositoryTest.java" />
       </list>
     </option>
   </component>
@@ -606,7 +614,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558062276872" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558064186448" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="extract.method.default.visibility" value="private" />
@@ -647,7 +655,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.GoodsRepositoryTest.testCreateIndex">
+  <component name="RunManager" selected="JUnit.GoodsRepositoryTest.loadData">
     <configuration name="JsonUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.leyou.common.utils.JsonUtils" />
       <module name="ly-common" />
@@ -672,6 +680,22 @@
       <option name="PACKAGE_NAME" value="com.leyou.search.client" />
       <option name="MAIN_CLASS_NAME" value="com.leyou.search.client.CategoryClientTest" />
       <option name="METHOD_NAME" value="queryCategoryByIds" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GoodsRepositoryTest.loadData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ly-search" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.leyou.search.repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.leyou.search.repository" />
+      <option name="MAIN_CLASS_NAME" value="com.leyou.search.repository.GoodsRepositoryTest" />
+      <option name="METHOD_NAME" value="loadData" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -737,9 +761,11 @@
       <item itemvalue="Application.JsonUtils" />
       <item itemvalue="JUnit.CategoryClientTest.queryCategoryByIds" />
       <item itemvalue="JUnit.GoodsRepositoryTest.testCreateIndex" />
+      <item itemvalue="JUnit.GoodsRepositoryTest.loadData" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GoodsRepositoryTest.loadData" />
         <item itemvalue="JUnit.GoodsRepositoryTest.testCreateIndex" />
         <item itemvalue="JUnit.CategoryClientTest.queryCategoryByIds" />
         <item itemvalue="Application.JsonUtils" />
@@ -780,7 +806,7 @@
       <workItem from="1557891128528" duration="808000" />
       <workItem from="1557971477275" duration="4102000" />
       <workItem from="1557996580705" duration="4753000" />
-      <workItem from="1558057659783" duration="4610000" />
+      <workItem from="1558057659783" duration="6377000" />
     </task>
     <servers />
   </component>
@@ -814,7 +840,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101464000" />
+    <option name="totallyTimeSpent" value="103231000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -829,7 +855,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.21588486" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.21588486" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.1924307" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -843,7 +869,7 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.10813824" />
+      <window_info anchor="bottom" id="TODO" order="6" visible="true" weight="0.11928651" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
@@ -871,13 +897,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/tk/mybatis/mapper-base/1.1.4/mapper-base-1.1.4-sources.jar!/tk/mybatis/mapper/common/base/insert/InsertMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/tk/mybatis/mapper-base/1.1.4/mapper-base-1.1.4-sources.jar!/tk/mybatis/mapper/common/Mapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -977,6 +996,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="966">
           <caret line="54" column="22" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -984,6 +1006,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4200">
           <caret line="200" column="59" selection-start-line="200" selection-start-column="59" selection-end-line="200" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1041,6 +1066,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="30" column="52" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1178,16 +1206,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ly-search/src/test/java/com/leyou/search/repository/GoodsRepositoryTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ly-search/src/main/java/com/leyou/search/pojo/Goods.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
@@ -1202,16 +1220,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="326">
-            <caret line="62" column="107" selection-start-line="62" selection-start-column="107" selection-end-line="62" selection-end-column="107" />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -1252,8 +1260,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ly-search/src/main/java/com/leyou/search/service/SearchService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="108" column="67" lean-forward="true" selection-start-line="108" selection-start-column="67" selection-end-line="108" selection-end-column="67" />
+        <state relative-caret-position="400">
+          <caret line="139" column="49" lean-forward="true" selection-start-line="139" selection-start-column="49" selection-end-line="139" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ly-common/src/main/java/com/leyou/common/vo/PageResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="546">
+            <caret line="63" column="121" selection-start-line="63" selection-start-column="121" selection-end-line="63" selection-end-column="121" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ly-search/src/test/java/com/leyou/search/repository/GoodsRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="530">
+          <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
