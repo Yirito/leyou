@@ -12,13 +12,21 @@ import com.leyou.search.client.GoodsClient;
 import com.leyou.search.client.SpecificationClient;
 import com.leyou.search.pojo.Goods;
 import com.leyou.search.pojo.SearchRequest;
+import com.leyou.search.pojo.SearchResult;
 import com.leyou.search.repository.GoodsRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.Aggregation;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.FetchSourceFilter;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -27,6 +35,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class SearchService {
 
@@ -44,6 +53,9 @@ public class SearchService {
 
     @Autowired
     private GoodsRepository goodsRepository;
+
+    @Autowired
+    private ElasticsearchTemplate template;
 
     /**
      * 数据转换，把数据库的spu转成elasticsearch
@@ -180,19 +192,68 @@ public class SearchService {
         int size = request.getSize();
         //创建查询构建起
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
+
         //0 结果过滤  只要选定的字段，其他字段不要
         queryBuilder.withSourceFilter(new FetchSourceFilter(new String[]{"id", "subTitle", "skus"}, null));
+
         //1 分页
         queryBuilder.withPageable(PageRequest.of(page, size));
+
         //2 过滤     这个过滤是只查询索引all的数据
         queryBuilder.withQuery(QueryBuilders.matchQuery("all", request.getKey()));
-        //3 查询
-        Page<Goods> result = goodsRepository.search(queryBuilder.build());
-        //4 解析结果
+
+        //3 聚合分类和品牌
+        //3.1 聚合分类,命名为category_agg,根据cid3聚合,方式为terms聚合
+        String categoryAggName = "category_agg";
+        queryBuilder.addAggregation(AggregationBuilders.terms(categoryAggName).field("cid3"));
+
+        //3.2 聚合品牌,命名为brand_agg,根据brandId聚合,方式为terms聚合
+        String brandAggName = "brand_agg";
+        queryBuilder.addAggregation(AggregationBuilders.terms(brandAggName).field("brandId"));
+
+        //4 查询 这个goodsRepository只能查询分页等普通的，复杂的还是需要用到原生的template
+        //Page<Goods> result = goodsRepository.search(queryBuilder.build());
+
+        //4 聚合查询
+        AggregatedPage<Goods> result = template.queryForPage(queryBuilder.build(), Goods.class);
+
+        //5 解析结果
+        //5.1 解析分页结果
         long total = result.getTotalElements();
         int totalPage = result.getTotalPages();
         List<Goods> goodsList = result.getContent();
 
-        return new PageResult<>(total, totalPage, goodsList);
+        //5.2 解析聚合结果
+        Aggregations aggregations = result.getAggregations();
+        List<Category> categories = parseCategoryAgg(aggregations.get(categoryAggName));
+        List<Brand> brands = parseBrandAgg(aggregations.get(brandAggName));
+        //return new PageResult<>(total, totalPage, goodsList);
+        return new SearchResult(total, totalPage, goodsList, categories, brands);
+    }
+
+    private List<Brand> parseBrandAgg(LongTerms terms) {
+        try {
+            //转成map，把Buckets转成long的流，再把流collect收集成toList集合
+            List<Long> ids = terms.getBuckets()
+                    .stream().map(b -> b.getKeyAsNumber().longValue()).collect(Collectors.toList());
+            List<Brand> brands = brandClient.queryBrandByIds(ids);
+            return brands;
+        } catch (Exception e) {
+            log.error("[搜索服务]查询品牌异常:",e);
+            return null;
+        }
+    }
+
+    private List<Category> parseCategoryAgg(LongTerms terms) {
+        try {
+            //转成map，把Buckets转成long的流，再把流collect收集成toList集合
+            List<Long> ids = terms.getBuckets()
+                    .stream().map(b -> b.getKeyAsNumber().longValue()).collect(Collectors.toList());
+            List<Category> categories = categoryClient.queryCategoryByIds(ids);
+            return categories;
+        } catch (Exception e) {
+            log.error("[搜索服务]查询分类异常:",e);
+            return null;
+        }
     }
 }
