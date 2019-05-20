@@ -7,22 +7,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class SearchResult extends PageResult<Goods> {
 
-    private List<Category> categories;
+    private List<Category> categories;//分类待选项
 
-    private List<Brand> brands;
+    private List<Brand> brands;//品牌待选项
+
+    private List<Map<String, Object>> specs;//规格参数过滤条件（key及待选项）
 
     public SearchResult() {
         super();
     }
 
-    public SearchResult(Long total, Integer totalPage, List<Goods> items, List<Category> categories, List<Brand> brands) {
+    public SearchResult(Long total, Integer totalPage, List<Goods> items, List<Category> categories, List<Brand> brands, List<Map<String, Object>> specs) {
         super(total, totalPage, items);
         this.categories = categories;
         this.brands = brands;
+        this.specs = specs;
     }
 
 }
