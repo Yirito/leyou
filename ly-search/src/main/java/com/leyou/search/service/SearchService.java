@@ -17,6 +17,7 @@ import com.leyou.search.repository.GoodsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -205,7 +206,7 @@ public class SearchService {
         //1 分页
         queryBuilder.withPageable(PageRequest.of(page, size));
         //2 搜索条件     搜索索引all的数据
-        QueryBuilder basicQuery = QueryBuilders.matchQuery("all", key);
+        QueryBuilder basicQuery = buildBasicQuery(request);
         queryBuilder.withQuery(basicQuery);
         //3 聚合分类和品牌
         //3.1 聚合分类,命名为category_agg,根据cid3聚合,方式为terms聚合
@@ -235,6 +236,26 @@ public class SearchService {
         }
         //return new PageResult<>(total, totalPage, goodsList);
         return new SearchResult(total, totalPage, goodsList, categories, brands, specs);
+    }
+
+    private QueryBuilder buildBasicQuery(SearchRequest request) {
+        //创建布尔查询 因为在elasticsearch中，过滤和查询不能同时使用，所以必须得先使用bool
+        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
+        //查询条件
+        queryBuilder.must(QueryBuilders.matchQuery("all", request.getKey()));
+        //过滤条件
+        Map<String, String> map = request.getFilter();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            //处理key  规格参数不用处理，只处理分类和品牌
+            if (!"cid3".equals(key) && (!"brandId".equals(key))) {
+                key = "spec." + key + ".keyword";
+            }
+            String value = entry.getValue();
+            queryBuilder.filter(QueryBuilders.termQuery(key, value));
+        }
+
+        return queryBuilder;
     }
 
     private List<Map<String, Object>> buildSpecificationAgg(Long cid, QueryBuilder basicQuery) {
