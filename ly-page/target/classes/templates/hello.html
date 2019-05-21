@@ -7,8 +7,37 @@
 </head>
 <body>
 <h1>
-    <span th:text="${msg}"></span>
-    <br>hello，
+    <!--欢迎您:<span th:text="${user.name.toUpperCase().substring(4)}"></span>-->
+    <br>
+    <!--注意，有语法，不懂可以百度-->
+    <span th:text="${#dates.format(#dates.createNow(),'yyy-MM-dd')}"></span>
 </h1>
+<span th:text="'<font color = \'red\'> hello </font>'"></span><br>
+<span th:utext="'<font color = \'red\'> hello </font>'"></span>
+
+<h1>
+    <!--数值运算-->
+    <span th:text="100*200+200>1"></span>
+</h1>
+
+<h1>
+    <ul>
+        <!--循环-->
+        <li th:each="user:${users}">
+            <span th:text="${user.name}"></span>:
+            <span th:text="${user.age}"></span>
+        </li>
+    </ul>
+</h1>
+
+<script th:inline="javascript">
+    const users = /*[[${users}]]*/[];
+
+    const user = users[0];
+    console.log(users.length);
+    for (let u in users) {
+        console.log(users[u]);
+    }
+</script>
 </body>
 </html>
