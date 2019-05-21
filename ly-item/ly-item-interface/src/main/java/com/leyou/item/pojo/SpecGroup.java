@@ -5,6 +5,8 @@ import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.List;
 
 //数据库没有这个表
 @Data
@@ -18,4 +20,7 @@ public class SpecGroup {
     private Long cid;
 
     private String name;
+
+    @Transient
+    private List<SpecParam> params;
 }

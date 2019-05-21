@@ -1,5 +1,6 @@
 package com.leyou.item.api;
 
+import com.leyou.item.pojo.SpecGroup;
 import com.leyou.item.pojo.SpecParam;
 import com.leyou.item.pojo.Spu;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,11 @@ public interface SpecificationApi {
             @RequestParam(value = "searching", required = false) Boolean searching);
 
     /**
-     * 根据spu的id查询spu
+     * 根据分类查询规格组及组内参数
      *
-     * @param id
+     * @param cid
      * @return
      */
-    @GetMapping("spu/{id}")
-    Spu querySpuById(@PathVariable("id") Long id);
-
+    @GetMapping("spec/group")
+    List<SpecGroup> queryGroupListByCid(@RequestParam("cid") Long cid);
 }

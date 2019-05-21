@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SpecificationService {
@@ -55,5 +58,32 @@ public class SpecificationService {
             throw new LyException(ExceptionEnum.SPEC_PARAM_NOT_FOUND);
         }
         return list;
+    }
+
+    public List<SpecGroup> queryGroupListByCid(Long cid) {
+        //查询规格组
+        List<SpecGroup> specGroups = queryGroupByCid(cid);
+        //查询当前分类下的参数
+        List<SpecParam> specParams = queryParamList(null, cid, null);
+        //先把规格参数变成map，map的key是规格组的id，map的值是组下的所有参数
+
+        /**
+         * 这里两个for其实是优化过之后的for
+         * 因为本来是双重for循环，会影响性能，所以用到map和外面的for，这在大数据处理中必须得优化的。
+         */
+        Map<Long, List<SpecParam>> paramMap = new HashMap<>();
+
+        for (SpecParam specParam : specParams) {
+            if (!paramMap.containsKey(specParam.getGroupId())) {
+                //这个组id在map不存在，新增一个list
+                paramMap.put(specParam.getGroupId(), new ArrayList<>());
+            }
+            paramMap.get(specParam.getGroupId()).add(specParam);
+        }
+        //填充param到group
+        for (SpecGroup specGroup : specGroups) {
+            specGroup.setParams(paramMap.get(specGroup.getId()));
+        }
+        return specGroups;
     }
 }
