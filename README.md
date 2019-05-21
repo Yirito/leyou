@@ -8,7 +8,7 @@ ly-common复用工具类组件
 ly-item有interface和service，一个用来对外告诉自身的pojo构造函数，一个用来实现（不对外）。  
 ly-upload用来上传图片等东西的微服务，通用上传  
 ly-search搜索微服务，elasticsearch搜索等大数据搜索用的  
-ly-page放置静态页面Thymeleaf的  
+ly-page放置静态页面Thymeleaf的(因只做后台，所以该微服务未做详细的item.html)    
 
 /////////////////////////////////////插件///////////////////////////////////////////  
 通用mapper和分页助手也很好用，只要是单个数据库查询的，都可以使用通用mapper    
@@ -69,5 +69,7 @@ skuList.forEach(s ->s.setStock(stockMap.get(s.getId())));
 List<Long> ids = skuList.stream().map(Sku::getId).collect(Collectors.toList());后面这个toList可以改需要的类型，如toSet  
 spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可以放入方法searchService::buildGoods，返回值为Goods        
 
-注释的TODO很好用，不但可以高亮注释代码，还会在idea上提示你需要todo的事情，将来你忘了要做什么的时候，直接点开左下角的todo就可以看到你标记过的东西
+注释的TODO很好用，不但可以高亮注释代码，还会在idea上提示你需要todo的事情，将来你忘了要做什么的时候，直接点开左下角的todo就可以看到你标记过的东西  
+
+@Controller//如果是RestController是把返回结果按照json处理，这是普通的controller
   

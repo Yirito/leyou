@@ -1,7 +1,9 @@
 package com.leyou.item.api;
 
 import com.leyou.item.pojo.SpecParam;
+import com.leyou.item.pojo.Spu;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -23,4 +25,14 @@ public interface SpecificationApi {
             @RequestParam(value = "gid", required = false) Long gid,
             @RequestParam(value = "cid", required = false) Long cid,
             @RequestParam(value = "searching", required = false) Boolean searching);
+
+    /**
+     * 根据spu的id查询spu
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("spu/{id}")
+    Spu querySpuById(@PathVariable("id") Long id);
+
 }

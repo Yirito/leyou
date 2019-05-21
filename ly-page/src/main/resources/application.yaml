@@ -3,3 +3,9 @@ spring:
     name: page-service
   thymeleaf:
     cache: false  #缓存。为true的话，修改html文件时，不会自动更新，为false的时候，修改html自动更新页面渲染，记得rebuild。
+server:
+  port: 8084
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka

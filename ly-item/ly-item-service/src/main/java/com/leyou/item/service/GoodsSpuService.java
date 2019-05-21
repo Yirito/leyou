@@ -220,4 +220,18 @@ public class GoodsSpuService {
         //新增sku和stock
         saveSkuAndStock(spu);
     }
+
+    public Spu querySpuById(Long id) {
+        //查询spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        if (spu == null) {
+            throw new LyException(ExceptionEnum.GOODS_NOT_FOND);
+        }
+        //查询sku
+        List<Sku> skuList = querySkuBySpuId(id);
+        spu.setSkus(skuList);
+        //查询detail
+        spu.setSpuDetail(queryDetailById(id));
+        return spu;
+    }
 }

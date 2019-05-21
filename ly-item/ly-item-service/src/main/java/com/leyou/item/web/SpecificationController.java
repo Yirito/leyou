@@ -2,6 +2,7 @@ package com.leyou.item.web;
 
 import com.leyou.item.pojo.SpecGroup;
 import com.leyou.item.pojo.SpecParam;
+import com.leyou.item.pojo.Spu;
 import com.leyou.item.service.SpecificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,8 +49,8 @@ public class SpecificationController {
      * 最新，因为要根据组id查询参数、根据分类id查询参数，有两个相同的，所以不便写两个controller，合二为一。
      * searching预留非以后
      *
-     * @param gid 组id
-     * @param cid 分类id
+     * @param gid       组id
+     * @param cid       分类id
      * @param searching 是否搜索
      * @return
      */
@@ -58,6 +59,6 @@ public class SpecificationController {
             @RequestParam(value = "gid", required = false) Long gid,
             @RequestParam(value = "cid", required = false) Long cid,
             @RequestParam(value = "searching", required = false) Boolean searching) {
-        return ResponseEntity.ok(specificationService.queryParamList(gid,cid,searching));
+        return ResponseEntity.ok(specificationService.queryParamList(gid, cid, searching));
     }
 }
