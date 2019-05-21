@@ -1,4 +1,7 @@
 ﻿# 乐优商城
+
+服务框架为SpringBoot分布式微服务
+
 ly-gateway网关  
 ly-registry注册中心  
 ly-common复用工具类组件  
@@ -8,11 +11,11 @@ ly-search搜索微服务，elasticsearch搜索等大数据搜索用的
 ly-page放置静态页面Thymeleaf的  
 
 /////////////////////////////////////插件///////////////////////////////////////////  
-通用mapper和分页助手也真的很好用，只要是单个数据库查询的，都可以使用通用mapper    
+通用mapper和分页助手也很好用，只要是单个数据库查询的，都可以使用通用mapper    
 mapper接口继承的类有很多，现在举个例子：IdListMapper（根据批量id查询、删除），Mapper（通用mapper，包含各种普通新增改查）,InsertListMapper(批量新增)。
 请注意，这些继承的，有些包是不同的，所以功能不同。就比如InsertListMapper，有两个包，一个只可以识别id进行批量新增，一个可以不是id批量新增 
 
-lombok真的很好用  
+lombok很好用  
 @Getter//为非final字段添加  
 @NoArgsConstructor //自动生成无参数构造函数。  
 @AllArgsConstructor //自动生成全参数构造函数。 
