@@ -2,7 +2,10 @@
 ly-gateway网关  
 ly-registry注册中心  
 ly-common复用工具类组件  
-ly-item有interface和service，一个用来对外告诉自身的pojo构造函数，一个用来实现（不对外）。
+ly-item有interface和service，一个用来对外告诉自身的pojo构造函数，一个用来实现（不对外）。  
+ly-upload用来上传图片等东西的微服务，通用上传  
+ly-search搜索微服务，elasticsearch搜索等大数据搜索用的  
+ly-page放置静态页面Thymeleaf的  
 
 /////////////////////////////////////插件///////////////////////////////////////////  
 通用mapper和分页助手也真的很好用，只要是单个数据库查询的，都可以使用通用mapper    
