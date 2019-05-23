@@ -2,11 +2,24 @@ server:
   port: 8081
 spring:
   application:
-    name: item-service
-  datasource:
+    name: item-service #微服务名称
+  datasource: #数据库
     url: jdbc:mysql://localhost:3306/yun6?serverTimezone=UTC
     username: root
     password: luozhong168168
+  rabbitmq: #事件rabbitmq
+    host: 127.0.0.1
+    username: leyou
+    password: leyou
+    virtual-host: /leyou #配置虚拟机名称，需要去MQ页面先创建
+    template: #模板
+      retry: #重试信息
+        enabled: true
+        initial-interval: 10000ms #重试周期10秒
+        max-interval: 30000ms #最大重试时间，就initial-interval*multiplier<max-interval
+        multiplier: 2 #重试周期
+      exchange: ly.item.exchange #交换机
+    publisher-confirms: true #生产者确认 如果发送失败，自动发送重试
 eureka:
   client:
     service-url:

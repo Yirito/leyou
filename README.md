@@ -74,7 +74,12 @@ ACK分为两种：自动ACK，意思当接收到消息后，自动确认并发�
 // 手动进行ACK   
 channel.basicAck(envelope.getDeliveryTag(), false);  
 // 监听队列，第二个参数false，手动进行ACK     
-channel.basicConsume(QUEUE_NAME, false, consumer);   
+channel.basicConsume(QUEUE_NAME, false, consumer);  
+
+面试经常问持久化：  
+就是当RabbitMQ挂了咋办，挂了消息和队列都没有了，集群可以解决，但回答持久化更好。  
+声明交换机或队列的时候，设置durable为true即可（channel.queueDeclare第二个参数），这是消费者和生产者持久化。消息持久化需要设置发送信息，第三个参数设置(chanel.basicPublish设置为MessageProperties.其他)。  
+   
 
 消息堆积Work：  
 多弄几个消费者，就启动多个微服务就行了。谁先领完任务谁先完成就算结束，和负载均衡差不多，默认是平均分，可以设置。  
@@ -88,7 +93,10 @@ channel.basicQos(1);
 中间有交换机，但消费者会绑定路由key，这样就不是任意绑定了，也不是同时一起收了，而是发送方发送的时候，选择RoutingKey，发送给匹配的人。  
 
 订阅模式Topic：  
-和direct差不多，只不多RoutingKey可以使用通配符，如：usa.#匹配usa开头的RoutingKey，而不是direct的insert、delete、update。  
+和direct差不多，只不多RoutingKey可以使用通配符，如：usa.#匹配usa开头的RoutingKey，而不是direct的insert、delete、update。    
+
+SpringAMQP已经整合了RabbitMQ，发消息直接一个amqpTemplate.convertAndSend即可。  
+接收消息在component上的方法加上@RabbitListener注解即可，注解属性多一点，参考源码Demo。        
              
   
 ## -----------------Thymeleaf-----------------
