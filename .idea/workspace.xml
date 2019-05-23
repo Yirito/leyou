@@ -75,7 +75,7 @@
           <entry key="html" value="563" />
           <entry key="java" value="19491" />
           <entry key="json" value="28" />
-          <entry key="md" value="4126" />
+          <entry key="md" value="4146" />
           <entry key="xml" value="359" />
           <entry key="yaml" value="1464" />
         </counts>
@@ -85,7 +85,7 @@
           <entry key="HTML" value="562" />
           <entry key="JAVA" value="19490" />
           <entry key="JSON" value="29" />
-          <entry key="Markdown" value="4126" />
+          <entry key="Markdown" value="4146" />
           <entry key="PLAIN_TEXT" value="11" />
           <entry key="ThymeleafExpressions" value="1" />
           <entry key="XML" value="359" />
@@ -136,8 +136,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="804">
-                <caret line="119" column="18" selection-start-line="119" selection-start-column="18" selection-end-line="119" selection-end-column="18" />
+              <first_editor relative-caret-position="567">
+                <caret line="111" column="2" selection-start-line="111" selection-start-column="2" selection-end-line="111" selection-end-column="2" />
               </first_editor>
               <second_editor />
             </state>
@@ -1016,7 +1016,7 @@
       <workItem from="1558336390362" duration="9025000" />
       <workItem from="1558403351502" duration="13307000" />
       <workItem from="1558491474021" duration="10482000" />
-      <workItem from="1558577270248" duration="1665000" />
+      <workItem from="1558577270248" duration="1926000" />
     </task>
     <servers />
   </component>
@@ -1053,7 +1053,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148184000" />
+    <option name="totallyTimeSpent" value="148445000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1483,8 +1483,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="804">
-            <caret line="119" column="18" selection-start-line="119" selection-start-column="18" selection-end-line="119" selection-end-column="18" />
+          <first_editor relative-caret-position="567">
+            <caret line="111" column="2" selection-start-line="111" selection-start-column="2" selection-end-line="111" selection-end-column="2" />
           </first_editor>
           <second_editor />
         </state>
