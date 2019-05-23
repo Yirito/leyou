@@ -153,7 +153,7 @@ public class GoodsSpuService {
         }
 
         //发送mq消息
-        amqpTemplate.convertAndSend("item.insert",spu.getId());
+        //amqpTemplate.convertAndSend("item.insert",spu.getId());
     }
 
     public SpuDetail queryDetailById(Long spuId) {
