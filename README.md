@@ -115,8 +115,8 @@ spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可
 
 
      
------------------SpringCloud-----------------  
-------------------------------------------------  
+SpringCloud  
+==================================  
 按照module、微服务形式进行学习cloud，从SpringCloudDemo学习。  
 
 要在父项目新增module，若想不麻烦，还需配置maven父目录。  
@@ -124,14 +124,8 @@ spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可
 因为使用module，所以可以使用idea右边maven projects 点一下刷新，右下角会弹出一个框，点击show run dashboard。（或者直接点下面的Run Dashboard）
 
 # -----------------项目介绍-----------------  
-核心是高并发
-
-eureka-server注册中心  
-consumer-demo服务调用者  
-user-service服务提供者  
-gateway网关Zuul   
-有这几个的好处是，微服务分离低偶尔，consumer动态调用服务（此时可以不需要知道ip地址）
-
+核心是高并发   
+ 
 ## -----------------高可用eureka，即使挂掉一台还有其他注册中心-----------------     
 要想在idea测试多个注册中心（eurekaServer）需要复制一份启动项（就是启动按钮左边的配置），然后随便命名为第二个便可。  
 原理是，修改端口10086，连接地址改为http://127.0.0.1:10087/eureka，先启动第一个，然后再修改端口10087，连接地址为10086。利用先后顺序启动可以启动两个不同端口。  
