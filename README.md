@@ -67,7 +67,7 @@ RabbitMQ默认端口15672，通信端口为5672，集群端口25672
 
  
 ### 面试经常问：    
-如何避免消息丢失simple：    
+如何避免消息丢失Simple：    
 消费者的消息确认机制。消费者获取消息后，会想RabbitMQ发送回执ACK，告知接收，此时就会确认，避免小时丢失。  
 ACK分为两种：自动ACK，意思当接收到消息后，自动确认并发送回执，不管后面自己写的代码有没报错有没处理完成业务，都会发送确认。  
 手动ACK:意思是需要代码控制，把自动ack设置为false即可。虽然信息，但你未消费，所以未确认，消息未丢失。  
@@ -76,10 +76,20 @@ channel.basicAck(envelope.getDeliveryTag(), false);
 // 监听队列，第二个参数false，手动进行ACK     
 channel.basicConsume(QUEUE_NAME, false, consumer);   
 
-消息堆积work：  
+消息堆积Work：  
 多弄几个消费者，就启动多个微服务就行了。谁先领完任务谁先完成就算结束，和负载均衡差不多，默认是平均分，可以设置。  
 // 设置每个消费者同时只能处理一条消息，就是谁先完成，继续去领任务，而不是平均分，做完就闲着。    
-channel.basicQos(1);             
+channel.basicQos(1);  
+
+广播Fanout：  
+中间有一个交换机，生产者发送给交换机，交换机再发送给消费者，如果有多个消费者，则一起接收。注意：若交换机不在，则消息丢失，因为消息只能存在队列，而交换机在队列前面，先经过交换机再分发给消费者队列。  
+
+订阅模型Direct：  
+中间有交换机，但消费者会绑定路由key，这样就不是任意绑定了，也不是同时一起收了，而是发送方发送的时候，选择RoutingKey，发送给匹配的人。  
+
+订阅模式Topic：  
+和direct差不多，只不多RoutingKey可以使用通配符，如：usa.#匹配usa开头的RoutingKey，而不是direct的insert、delete、update。  
+             
   
 ## -----------------Thymeleaf-----------------
 静态页面，因只涉及后台，这里暂不多说明，可以自行查看ly-page源码
@@ -100,18 +110,9 @@ spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可
 
 @Controller//如果是RestController是把返回结果按照json处理，这是普通的controller  
 
-
-
-
-
-
-
-
-
-
-
-
-
+      
+#SpringCloudDemo      
+      
 -----------------SpringCloud-----------------  
 ------------------------------------------------  
 按照module、微服务形式进行学习cloud，从SpringCloudDemo学习。  
