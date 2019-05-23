@@ -108,9 +108,13 @@ spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可
 
 注释的TODO很好用，不但可以高亮注释代码，还会在idea上提示你需要todo的事情，将来你忘了要做什么的时候，直接点开左下角的todo就可以看到你标记过的东西  
 
-@Controller//如果是RestController是把返回结果按照json处理，这是普通的controller  
-       
-      
+@Controller//如果是RestController是把返回结果按照json处理，这是普通的controller    
+
+
+
+
+
+     
 -----------------SpringCloud-----------------  
 ------------------------------------------------  
 按照module、微服务形式进行学习cloud，从SpringCloudDemo学习。  
