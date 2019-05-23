@@ -3,3 +3,17 @@ spring:
     name: page-service
   thymeleaf:
     cache: false  #缓存。为true的话，修改html文件时，不会自动更新，为false的时候，修改html自动更新页面渲染，记得rebuild。
+  main: #Feign的注册，有同名的feign的名字重复注册，相同的name也就是跨服务调用，同一个服务的接口，不能分散的写在多个接口类中.
+    #要放到同一个借口类中定义调用。这里true允许重复注册
+    allow-bean-definition-overriding: true
+  rabbitmq: #事件rabbitmq 消息接收方就不用写template了
+    host: 127.0.0.1
+    username: leyou
+    password: leyou
+    virtual-host: /leyou #配置虚拟机名称，需要去MQ页面先创建
+server:
+  port: 8084
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka

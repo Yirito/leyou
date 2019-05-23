@@ -96,7 +96,9 @@ channel.basicQos(1);
 和direct差不多，只不多RoutingKey可以使用通配符，如：usa.#匹配usa开头的RoutingKey，而不是direct的insert、delete、update。    
 
 SpringAMQP已经整合了RabbitMQ，发消息直接一个amqpTemplate.convertAndSend即可。  
-接收消息在component上的方法加上@RabbitListener注解即可，注解属性多一点，参考源码Demo。        
+接收消息在component上的方法加上@RabbitListener注解即可，注解属性多一点，参考源码Demo。  
+
+这个类似Android的eventBus          
              
   
 ## -----------------Thymeleaf-----------------
@@ -116,10 +118,10 @@ spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可
 
 注释的TODO很好用，不但可以高亮注释代码，还会在idea上提示你需要todo的事情，将来你忘了要做什么的时候，直接点开左下角的todo就可以看到你标记过的东西  
 
-@Controller//如果是RestController是把返回结果按照json处理，这是普通的controller    
+@Controller//如果是RestController是把返回结果按照json处理，这是普通的controller      
 
 
-
+打包过程：打开右边的Maven Projects =》Lifecycle =》install 即可打包成jar。然后上传到服务器或Nginx，使用命令java -jar ***.jar即可，不用tomcat，已经内置了tomcat。    
 
 
      

@@ -76,12 +76,25 @@ public class PageService {
         context.setVariables(loadModel(spuId));
         //输出流
         File dest = new File("C:/dlion/html", spuId + ".html");
+
+        if (dest.exists()) {//存在这个就删除
+            dest.delete();
+        }
+
         try {
             PrintWriter writer = new PrintWriter(dest, "UTF-8");
             //生成html
             templateEngine.process("item", context, writer);
         } catch (Exception e) {
             log.error("[静态页服务]生成静态页异常！" + e);
+        }
+    }
+
+    public void deleteHtml(Long spuId) {
+        //输出流
+        File dest = new File("C:/dlion/html", spuId + ".html");
+        if (dest.exists()) {//存在这个就删除
+            dest.delete();
         }
     }
 }
