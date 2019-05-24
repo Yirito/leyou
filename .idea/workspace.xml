@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a49285e1-1a9f-4a01-aa18-5f0671f17be2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/ly-registry/target/" />
@@ -25,7 +24,7 @@
     <session id="-1801845097">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="27" />
+          <entry key="project.closed" value="28" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="4" />
           <entry key="project.open.time.10" value="1" />
@@ -77,7 +76,7 @@
           <entry key="html" value="563" />
           <entry key="java" value="20120" />
           <entry key="json" value="28" />
-          <entry key="md" value="5075" />
+          <entry key="md" value="5419" />
           <entry key="xml" value="388" />
           <entry key="yaml" value="1759" />
         </counts>
@@ -87,7 +86,7 @@
           <entry key="HTML" value="562" />
           <entry key="JAVA" value="20119" />
           <entry key="JSON" value="29" />
-          <entry key="Markdown" value="5075" />
+          <entry key="Markdown" value="5419" />
           <entry key="PLAIN_TEXT" value="11" />
           <entry key="ThymeleafExpressions" value="1" />
           <entry key="XML" value="388" />
@@ -127,8 +126,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="398">
-                <caret line="115" column="65" selection-start-line="115" selection-start-column="65" selection-end-line="115" selection-end-column="65" />
+              <first_editor relative-caret-position="293">
+                <caret line="118" column="76" selection-start-line="118" selection-start-column="76" selection-end-line="118" selection-end-column="76" />
               </first_editor>
               <second_editor />
             </state>
@@ -1031,7 +1030,7 @@
       <workItem from="1558403351502" duration="13307000" />
       <workItem from="1558491474021" duration="10482000" />
       <workItem from="1558577270248" duration="12325000" />
-      <workItem from="1558664142056" duration="4186000" />
+      <workItem from="1558664142056" duration="5403000" />
     </task>
     <servers />
   </component>
@@ -1068,7 +1067,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="163030000" />
+    <option name="totallyTimeSpent" value="164247000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1491,8 +1490,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="398">
-            <caret line="115" column="65" selection-start-line="115" selection-start-column="65" selection-end-line="115" selection-end-column="65" />
+          <first_editor relative-caret-position="293">
+            <caret line="118" column="76" selection-start-line="118" selection-start-column="76" selection-end-line="118" selection-end-column="76" />
           </first_editor>
           <second_editor />
         </state>
