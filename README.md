@@ -56,7 +56,12 @@ CORS原理，分为简单请求和特殊请求。
 另外还需要安装ik分词器，属于elasticsearch插件，用以中文分词  
 ik分词器"analyzer": "ik_smart"用以人性化分类，而ik_max_word则细分。elasticsearch并且支持http的rest风格访问。   
 
-elasticsearch需要创建索引，其实类似mysql    
+elasticsearch需要创建索引，其实类似mysql   
+
+             
+  
+## -----------------Thymeleaf-----------------
+静态页面，因只涉及后台，这里暂不多说明，可以自行查看ly-page源码    
 
 ##  -----------------RabbitMQ-----------------  
 官网：https://www.rabbitmq.com/  
@@ -98,11 +103,19 @@ channel.basicQos(1);
 SpringAMQP已经整合了RabbitMQ，发消息直接一个amqpTemplate.convertAndSend即可。  
 接收消息在component上的方法加上@RabbitListener注解即可，注解属性多一点，参考源码Demo。  
 
-这个类似Android的eventBus          
+这个类似Android的eventBus            
              
   
-## -----------------Thymeleaf-----------------
-静态页面，因只涉及后台，这里暂不多说明，可以自行查看ly-page源码
+## -----------------Redis----------------- 
+需要安装（Windows好像不维护了，Windows最新版是3.2，而linux版本都5.0了）   
+缓存，端口默认6379    
+NoSql 不仅仅是数据库  
+面试常问：缓存击穿、缓存雪崩，热点key失效。需自行百度  
+keys命令是查询所有key，由于redis是单线程，切记不要在生产环境下使用该命令，不然查询几亿条数据卡死就完蛋了。最好禁用。  
+del key 删除一个key   
+exists key 判断是否有这个key   
+redis默认有16个库，select 3 选择第三个库，一般集群是禁用select，只用一个库，可以修改。  
+expire key seconds，redis默认key无限时间，这个expire后面跟着key再跟着秒，设置多少秒就失效。              
 
 # -----------------后记----------------- 
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
