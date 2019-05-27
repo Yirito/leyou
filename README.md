@@ -118,7 +118,9 @@ redis默认有16个库，select 3 选择第三个库，一般集群是禁用sele
 expire key seconds，redis默认key无限时间，这个expire后面跟着key再跟着秒，设置多少秒就失效。   
 上面是通用指令，下面是特殊指令，通用如del是删除del所属的key，而特殊如hdel只是删除哈希key下的value下的key对应的value值。  
 获取string的命令：set key，get key。  还有批量设置：mset k1 v1 k2 v2。mget k1 v1 k2 v2  
-hset 和hget 是用来存储哈希和取出哈希的。如 hset user:123 name "rouse" 这里存了user:123的key，其value是map<name,"rouse">。取就hget user:123 name。                
+hset 和hget 是用来存储哈希和取出哈希的。如 hset user:123 name "rouse" 这里存了user:123的key，其value是map<name,"rouse">。取就hget user:123 name。  
+
+不用redisTemplate，而是使用StringRedisTemplate，因为他已经默认string，并且序列化字节的时候也默认了，StringRedisTemplate的opsForHash/List/Set/Value(字符串) 对应redis的数据结构                
 
 # -----------------后记----------------- 
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
