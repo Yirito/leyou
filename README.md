@@ -9,7 +9,8 @@ ly-common复用工具类组件
 ly-item有interface和service，一个用来对外告诉自身的pojo构造函数，一个用来实现（不对外）。  
 ly-upload用来上传图片等东西的微服务，通用上传  
 ly-search搜索微服务，elasticsearch搜索等大数据搜索用的  
-ly-page放置静态页面Thymeleaf的(因只做后台，所以该微服务未做详细的item.html)    
+ly-page放置静态页面Thymeleaf的(因只做后台，所以该微服务未做详细的item.html)  
+ly-sms发送短信的微服务，里面有发送短信、rabbitMQ、redis例子。      
 
 ## -----------------插件----------------- 
 通用mapper和分页助手也很好用，只要是单个数据库查询的，都可以使用通用mapper    
@@ -22,7 +23,11 @@ lombok很好用
 @AllArgsConstructor //自动生成全参数构造函数。 
 
 ## -----------------注意-----------------  
-记住扫描controller包的时候，spring启动函数放到包外，不然扫不到。   
+记住扫描controller包的时候，spring启动函数放到包外，不然扫不到。  
+
+自定义属性时，先在application.yaml设置属性格式，如：ly: sms: test1:123。然后创建一个类如TestProperties，@ConfigurationProperties(prefix = "ly.sms")//获取自定义属性，@Data。记得，这个类的属性字段必须和自定义名字相同，private String test1    
+获取时@Component，@EnableConfigurationProperties(TestProperties.class)，然后注入这个类TestProperties，就可以获取这个类的自定义属性名了。    
+   
 
 ## -----------------文件上传-----------------   
 ①、所有请求经过网关时，springMVC会先预处理，并缓存，对普通请求没什么影响，但对上传文件会造成网络负担，在高并发时，有可能造成网络阻塞。所以在请求路径前加一个/zuul，这个默认值是可以更改的
@@ -142,6 +147,7 @@ spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可
 打包过程：打开右边的Maven Projects =》Lifecycle =》install 即可打包成jar。然后上传到服务器或Nginx，使用命令java -jar ***.jar即可，不用tomcat，已经内置了tomcat。    
 
 
+CTRL+ALT+B查看接口实现。CTRL+SHIFT+U转大写字母。  
      
 SpringCloud  
 ==================================  
