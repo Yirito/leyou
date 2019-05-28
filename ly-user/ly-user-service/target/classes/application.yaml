@@ -1,0 +1,16 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: user-service
+  datasource: #数据库
+    url: jdbc:mysql://localhost:3306/yun6?serverTimezone=UTC
+    username: root
+    password: luozhong168168
+    driver-class-name: com.mysql.jdbc.Driver
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+mybatis:
+  type-aliases-package: com.leyou.user.pojo

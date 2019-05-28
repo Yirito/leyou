@@ -18,6 +18,7 @@ zuul:
       serviceId: upload-service
       strip-prefix: false
     search-service: /search/** #讲搜索微服务映射到/search/**
+    user-service: /user/** #讲搜索微服务映射到/user/**
 hystrix:
   command:
     default:
