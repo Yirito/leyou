@@ -7,7 +7,14 @@ spring:
     url: jdbc:mysql://localhost:3306/yun6?serverTimezone=UTC
     username: root
     password: luozhong168168
-    driver-class-name: com.mysql.jdbc.Driver
+    #driver-class-name: com.mysql.jdbc.Driver
+  rabbitmq:
+    host: 127.0.0.1
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+  redis:
+    host: 127.0.0.1
 eureka:
   client:
     service-url:

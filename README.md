@@ -132,6 +132,12 @@ hset 和hget 是用来存储哈希和取出哈希的。如 hset user:123 name "r
 
 不用redisTemplate，而是使用StringRedisTemplate，因为他已经默认string，并且序列化字节的时候也默认了，StringRedisTemplate的opsForHash/List/Set/Value(字符串) 对应redis的数据结构                
 
+## -----------------Hibernate Validator-----------------  
+数据校验。在接收的bean使用注解@Valid，用来校验Bean的合法性等，然后在实体类写上相应的注解即可。具体可查看user-service的pojo  
+这里要注意，因为错误返回是spring自己写的，所以我们需要在接收的bean后面加上BindingResult result，然后if (result.hasFieldErrors()判断即可返回我们自己的或者throw new RuntimeException(result.getFieldErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.joining("|")));  
+不过一般这里并不需要去判断和返回信息，直接无视掉就好了，因为这些信息是前端做的，我们不要显示就好了。  
+可查看UserController。              
+
 # -----------------后记----------------- 
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
 StringUtils.join拼接字符串 ,Arrays.asList(spu.getCid1(), spu.getCid2(), spu.getCid3())加入List,  
