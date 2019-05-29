@@ -35,6 +35,7 @@ public enum ExceptionEnum {
     INVALID_VERIFY_CODE(400, "无效验证码"),
     INVALID_USER_PASSWORD(400, "用户名或密码错误"),
     CREATE_TOKEN_ERROR(500, "用户凭证生成失败"),
+    UNAUTHORIZED(403, "未授权"),
     ;
     private int code;
     private String msg;

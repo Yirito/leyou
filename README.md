@@ -16,7 +16,9 @@ ly-auth授权中心，用户登陆。用户用来鉴权和授权的。有rsa加�
 
 ## -----------------接口-----------------
 关于接口返回，一定要是用rest风格返回，即：不能出现动词，修改：post，删除：delete等。返回状态码也要遵循rest风格如404、500等。  
-写接口时，一定要按照接口文档来写，一般都是有框架人员来写。            
+写接口时，一定要按照接口文档来写，一般都是有框架人员来写。  
+获取接口请求参数时：@CookieValue("LY_TOKEN") String token获取cookie。@RequestParam("username") String username获取请求参数username。@PathVariable("data") String data获取请求参数@GetMapping("/check/{data}/{type}")的data值。  
+            
 
 ## -----------------插件----------------- 
 通用mapper和分页助手也很好用，只要是单个数据库查询的，都可以使用通用mapper    

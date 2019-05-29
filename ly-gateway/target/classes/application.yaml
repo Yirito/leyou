@@ -21,7 +21,7 @@ zuul:
     user-service: /user/** #讲搜索微服务映射到/user/**
     auth-service: /auth/** # 授权中心微服务
   add-host-header: true #添加host头信息
-  sensitive-headers: #放行所有敏感头
+  sensitive-headers: #放行所有敏感头 不填写即可。
 hystrix:
   command:
     default:
