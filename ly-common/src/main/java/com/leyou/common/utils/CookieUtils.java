@@ -124,6 +124,9 @@ public final class CookieUtils {
         private String getDomainName(HttpServletRequest request) {
             String domainName = null;
 
+            /**
+             * 当这里有反向代理的时候，这里域名指向会不正确，会被反向代理到设置好的ngin那里的ip
+             */
             String serverName = request.getRequestURL().toString();
             if (serverName == null || serverName.equals("")) {
                 domainName = "";

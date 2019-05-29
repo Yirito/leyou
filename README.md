@@ -147,10 +147,16 @@ hset 和hget 是用来存储哈希和取出哈希的。如 hset user:123 name "r
 无登录流程：先登陆验证，认证通过将用户信息加密形成token返回给客户端，以后每次请求，客户端都携带token，服务器对token解密，判断是否有效。  
 采用JWT+RSA非对称加密对token加密，防止伪造。jwt官网（https://jwt.io/）,jwt只是规范。  
 jwt包括三部分，header、payload、signature。  
-步骤：用户登陆，认证、通过后根据secret生成token，返回token给用户，用户每次请求携带token，服务器截图jwt签名，有效后从payload取出用户信息，处理请求、返回结果。    
-        
-                 
+步骤：用户登陆，认证、通过后根据secret生成token，返回token给用户，用户每次请求携带token，服务器截图jwt签名，有效后从payload取出用户信息，处理请求、返回结果。  
 
+由于登陆的时候，是把token写到cookie里面，但cookie不允许跨域。  
+解决方法：①、有Nginx的时候：  
+这时跨域访问的时候是不会传回token的，所以需要配置Nginx，返回路径填写原来的地址$host。  
+②无论有没Nginx，都需要设置网关，因为zuul把host拦截了。    
+zuul添加配置add-host-header: true。以及过滤敏感头忽略。sensitive-headers: #放行所有敏感头 （感觉不安全，还不如返回的时候不要写cookie，直接返回token就好。）  
+  
+    
+      
 # -----------------后记----------------- 
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
 StringUtils.join拼接字符串 ,Arrays.asList(spu.getCid1(), spu.getCid2(), spu.getCid3())加入List,  
