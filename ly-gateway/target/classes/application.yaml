@@ -19,6 +19,7 @@ zuul:
       strip-prefix: false
     search-service: /search/** #讲搜索微服务映射到/search/**
     user-service: /user/** #讲搜索微服务映射到/user/**
+    auth-service: /auth/** # 授权中心微服务
 hystrix:
   command:
     default:

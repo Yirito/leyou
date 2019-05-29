@@ -40,7 +40,7 @@ public class AuthController {
         String token = authService.login(username, password);
         // 将token写入cookie,并指定httpOnly，防止通过JS获取和修改
         CookieUtils.newBuilder(response)
-                .httpOnly().build(cookieName, token);
+                .httpOnly().request(request).build(cookieName, token);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
