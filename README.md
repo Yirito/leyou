@@ -11,7 +11,8 @@ ly-upload用来上传图片等东西的微服务，通用上传
 ly-search搜索微服务，elasticsearch搜索等大数据搜索用的  
 ly-page放置静态页面Thymeleaf的(因只做后台，所以该微服务未做详细的item.html)  
 ly-sms发送短信的微服务，里面有发送短信、rabbitMQ、redis例子。  
-ly-user用户中心，包括用户注册、登陆、修改用户信息等。  
+ly-user用户中心，包括用户注册、修改用户信息等。  
+ly-auth授权中心，用户登陆。用户用来鉴权和授权的。有rsa加密和jwt协议。    
 
 ## -----------------接口-----------------
 关于接口返回，一定要是用rest风格返回，即：不能出现动词，修改：post，删除：delete等。返回状态码也要遵循rest风格如404、500等。  
@@ -31,7 +32,9 @@ lombok很好用
 记住扫描controller包的时候，spring启动函数放到包外，不然扫不到。  
 
 自定义属性时，先在application.yaml设置属性格式，如：ly: sms: test1:123。然后创建一个类如TestProperties，@ConfigurationProperties(prefix = "ly.sms")//获取自定义属性，@Data。记得，这个类的属性字段必须和自定义名字相同，private String test1    
-获取时@Component，@EnableConfigurationProperties(TestProperties.class)，然后注入这个类TestProperties，就可以获取这个类的自定义属性名了。    
+获取时@Component，@EnableConfigurationProperties(TestProperties.class)，然后注入这个类TestProperties，就可以获取这个类的自定义属性名了。  
+或者：@Value("${ly.jwt.cookieName}")  
+private String cookieName;  也可以获取自定义属性。      
    
 
 ## -----------------文件上传-----------------   
@@ -136,7 +139,17 @@ hset 和hget 是用来存储哈希和取出哈希的。如 hset user:123 name "r
 数据校验。在接收的bean使用注解@Valid，用来校验Bean的合法性等，然后在实体类写上相应的注解即可。具体可查看user-service的pojo  
 这里要注意，因为错误返回是spring自己写的，所以我们需要在接收的bean后面加上BindingResult result，然后if (result.hasFieldErrors()判断即可返回我们自己的或者throw new RuntimeException(result.getFieldErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.joining("|")));  
 不过一般这里并不需要去判断和返回信息，直接无视掉就好了，因为这些信息是前端做的，我们不要显示就好了。  
-可查看UserController。              
+可查看UserController。  
+
+# -----------------登陆-----------------
+有状态登录:登陆的时候把session存在tomcat中。这样就不能做集群了，因为每个tomcat都不一样。并且存的session太多会造成服务器压力。  
+无状态登录:服务端不存信息，让客户端携带。这样可以搭建集群了，并且并发也高了。  
+无登录流程：先登陆验证，认证通过将用户信息加密形成token返回给客户端，以后每次请求，客户端都携带token，服务器对token解密，判断是否有效。  
+采用JWT+RSA非对称加密对token加密，防止伪造。jwt官网（https://jwt.io/）,jwt只是规范。  
+jwt包括三部分，header、payload、signature。  
+步骤：用户登陆，认证、通过后根据secret生成token，返回token给用户，用户每次请求携带token，服务器截图jwt签名，有效后从payload取出用户信息，处理请求、返回结果。    
+        
+                 
 
 # -----------------后记----------------- 
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   

@@ -15,18 +15,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author: HuYi.Zhang
- * @create: 2018-04-24 17:20
- **/
 public class JsonUtils {
 
     public static final ObjectMapper mapper = new ObjectMapper();
 
     private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
-    @Nullable
-    public static String serialize(Object obj) {
+    public static String toString(Object obj) {
         if (obj == null) {
             return null;
         }
@@ -41,8 +36,7 @@ public class JsonUtils {
         }
     }
 
-    @Nullable
-    public static <T> T parse(String json, Class<T> tClass) {
+    public static <T> T toBean(String json, Class<T> tClass) {
         try {
             return mapper.readValue(json, tClass);
         } catch (IOException e) {
@@ -51,8 +45,7 @@ public class JsonUtils {
         }
     }
 
-    @Nullable
-    public static <E> List<E> parseList(String json, Class<E> eClass) {
+    public static <E> List<E> toList(String json, Class<E> eClass) {
         try {
             return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, eClass));
         } catch (IOException e) {
@@ -61,8 +54,7 @@ public class JsonUtils {
         }
     }
 
-    @Nullable
-    public static <K, V> Map<K, V> parseMap(String json, Class<K> kClass, Class<V> vClass) {
+    public static <K, V> Map<K, V> toMap(String json, Class<K> kClass, Class<V> vClass) {
         try {
             return mapper.readValue(json, mapper.getTypeFactory().constructMapType(Map.class, kClass, vClass));
         } catch (IOException e) {
@@ -71,7 +63,6 @@ public class JsonUtils {
         }
     }
 
-    @Nullable
     public static <T> T nativeRead(String json, TypeReference<T> type) {
         try {
             return mapper.readValue(json, type);
@@ -91,26 +82,27 @@ public class JsonUtils {
 
     /**
      * 其实可以使用GSon或者fastJson
+     *
      * @param args
      */
     public static void main(String[] args) {
         User jack = new User("Jack", 21);
         //序列化
-        //String json = serialize(jack);
+        //String json = toString(jack);
         //System.out.println("json = " + json);
 
         //反序列化
-        //User user = parse(json, User.class);
+        //User user = toBean(json, User.class);
         //System.out.println("user = " + user);
 
         //集合
         //String json = "[20,-10,5,15]";
-        //List<Integer> integers = parseList(json, Integer.class);
+        //List<Integer> integers = toList(json, Integer.class);
         //System.out.println("integers = " + integers);
 
         //map
         //String json = "{\"name\":\"Jack\",\"age\":\"21\"}";
-        //Map<String, String> stringStringMap = parseMap(json, String.class, String.class);
+        //Map<String, String> stringStringMap = toMap(json, String.class, String.class);
         //System.out.println("stringStringMap = " + stringStringMap);
 
         //复杂的序列化

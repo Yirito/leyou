@@ -121,7 +121,7 @@ public class SearchService {
         SpuDetail spuDetail = goodsClient.queryDetailById(spuId);
 
         //获取通用规格参数
-        Map<Long, String> genericSpec = JsonUtils.parseMap(spuDetail.getGenericSpec(), Long.class, String.class);
+        Map<Long, String> genericSpec = JsonUtils.toMap(spuDetail.getGenericSpec(), Long.class, String.class);
         //获取特有规格参数
         Map<Long, List<String>> specialSpec = JsonUtils.nativeRead(spuDetail.getSpecialSpec(), new TypeReference<Map<Long, List<String>>>() {
         });
@@ -158,7 +158,7 @@ public class SearchService {
         goods.setId(spuId);
         goods.setAll(all);// 搜索字段,包含标题，分类，品牌，规格等
         goods.setPrice(priceList);//  所有sku的价格集合
-        goods.setSkus(JsonUtils.serialize(skus));// 所有sku的集合的json格式
+        goods.setSkus(JsonUtils.toString(skus));// 所有sku的集合的json格式
         goods.setSpecs(specs);// 所有可搜索的规格参数
         goods.setSubTitle(spu.getSubTitle());
         return goods;
