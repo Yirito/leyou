@@ -167,7 +167,10 @@ zuul添加配置add-host-header: true。以及过滤敏感头忽略。sensitive-
 cookie面试点：    
 cookie被禁用怎么办：一、提示用户打开cookie。二、把token放到web存储中（localStorage、SessionStorage），每次请求都需要手动携带token，写入头中。    
 cookie被盗用怎么办：可以在cookie加入身份识别，如网卡、mac等加入payload。不担心cookie被篡改，因为有token。但如果是网络环境如被黑了，那没办法了，但可以预防：网络访问可以https，有效避免被盗用。  
-          
+
+# -----------------传递对象-----------------
+在同一个tomcat中，单个用户访问时，所有的request都是，可以request.setAttribute("user", user);传递user，但spring不推荐这么做，可以使用private static final ThreadLocal<UserInfo> tl = new ThreadLocal<>();  
+因为不但request是共享的，线程thread也是共享的，而ThreadLocal存储的是map，key是线程，value是对象。直接tl.set(user);，key不用写，因为他会自己取当前线程。               
       
 # -----------------后记----------------- 
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   

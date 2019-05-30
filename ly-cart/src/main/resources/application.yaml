@@ -12,3 +12,7 @@ eureka:
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1
+ly:
+  jwt:
+    pubKeyPath: C:/dlion/rsa/rsa.pub # 公钥地址
+    cookieName: LY_TOKEN
