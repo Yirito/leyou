@@ -66,4 +66,8 @@ public class UserInterceptor implements HandlerInterceptor {
         //最后用完数据，一定要清空。
         tl.remove();
     }
+
+    public static UserInfo getUser() {
+        return tl.get();
+    }
 }
