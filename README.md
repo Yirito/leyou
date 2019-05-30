@@ -12,7 +12,8 @@ ly-search搜索微服务，elasticsearch搜索等大数据搜索用的
 ly-page放置静态页面Thymeleaf的(因只做后台，所以该微服务未做详细的item.html)  
 ly-sms发送短信的微服务，里面有发送短信、rabbitMQ、redis例子。  
 ly-user用户中心，包括用户注册、修改用户信息等。  
-ly-auth授权中心，用户登陆。用户用来鉴权和授权的。有rsa加密和jwt协议。    
+ly-auth授权中心，用户登陆。用户用来鉴权和授权的。有rsa加密和jwt协议。  
+ly-cart购物车微服务。      
 
 ## -----------------接口-----------------
 关于接口返回，一定要是用rest风格返回，即：不能出现动词，修改：post，删除：delete等。返回状态码也要遵循rest风格如404、500等。  
