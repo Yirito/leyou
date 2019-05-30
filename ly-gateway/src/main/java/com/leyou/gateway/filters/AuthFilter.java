@@ -8,6 +8,7 @@ import com.leyou.gateway.config.JwtProperties;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @Component
 @EnableConfigurationProperties({JwtProperties.class, FilterProperties.class})
 public class AuthFilter extends ZuulFilter {
@@ -104,6 +106,8 @@ public class AuthFilter extends ZuulFilter {
             ctx.setSendZuulResponse(false);
             //返回状态码
             ctx.setResponseStatusCode(403);
+            //
+            log.error("非法访问，未登录，地址:{}", request.getRemoteHost(), e);
         }
         return null;
     }

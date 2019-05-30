@@ -157,7 +157,16 @@ jwt包括三部分，header、payload、signature。
 ②无论有没Nginx，都需要设置网关，因为zuul把host拦截了。    
 zuul添加配置add-host-header: true。以及过滤敏感头忽略。sensitive-headers: #放行所有敏感头 （感觉不安全，还不如返回的时候不要写cookie，直接返回token就好。）  
   
-    
+登陆可优化的点：①权限需要引用。②在AuthFilter需要判断权限。③授权中心还要做服务鉴权（如果别人知道你其他微服务地址跨过了网关怎么办）。    
+
+③是个面试点：万一别人知道你微服务地址绕过网关怎么办：这时，已经不是进行用户鉴权了，而是服务间进行鉴权。数据库两个表：服务列表以及服务对服务关系表。
+每次服务调用其他服务时，先去授权中心获取权限，如search服务调用item商品服务，先把服务id和密码给授权中心，授权中心查询数据库看看是否通过，通过的话就通过jwt发放给search，每次search访问item就带着token。其实就是把微服务当成用户了。  
+这里的难点就是，服务启动时，就要把信息注册给授权中心，并且服务间的调用是使用feign，这时需要使用feign的拦截器先拦截判断是否有token。   
+
+cookie面试点：    
+cookie被禁用怎么办：一、提示用户打开cookie。二、把token放到web存储中（localStorage、SessionStorage），每次请求都需要手动携带token，写入头中。    
+cookie被盗用怎么办：可以在cookie加入身份识别，如网卡、mac等加入payload。不担心cookie被篡改，因为有token。但如果是网络环境如被黑了，那没办法了，但可以预防：网络访问可以https，有效避免被盗用。  
+          
       
 # -----------------后记----------------- 
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   

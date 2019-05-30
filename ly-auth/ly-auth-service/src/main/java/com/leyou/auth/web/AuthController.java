@@ -33,6 +33,7 @@ public class AuthController {
     //private String cookieName;
 
     /**
+     * 用户授权
      * 登陆授权
      *
      * @param username
@@ -54,6 +55,7 @@ public class AuthController {
     }
 
     /**
+     * 用户鉴权
      * 校验用户登陆状态
      *
      * @return
