@@ -34,3 +34,15 @@ ribbon:
   ReadTimeout: 3500 #ribbon读取超时时长
   MaxAutoRetries: 0 #当前服务重试次数
   MaxAutoRetriesNextServer: 0 #切换服务重试次数
+ly:
+  jwt:
+    pubKeyPath: C:/dlion/rsa/rsa.pub # 公钥地址
+    cookieName: LY_TOKEN
+  filter: #过滤鉴权放行白名单
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item #这个微服务是暂时的，生产时有些是不能放的

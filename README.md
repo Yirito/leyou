@@ -3,7 +3,7 @@
 服务框架为SpringBoot分布式微服务  
 ===================================
 
-ly-gateway网关  
+ly-gateway网关，拦截、鉴权等。    
 ly-registry注册中心  
 ly-common复用工具类组件  
 ly-item有interface和service，一个用来对外告诉自身的pojo构造函数，一个用来实现（不对外）。  
