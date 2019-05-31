@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 
 /**
+ * 雪花算法
  * <p>名称：IdWorker.java</p>
  * <p>描述：分布式自增长ID</p>
  * <pre>
@@ -41,7 +42,7 @@ public class IdWorker {
     private final static long datacenterIdShift = sequenceBits + workerIdBits;
     // 时间毫秒左移22位
     private final static long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits;
-
+    // 生成序列的掩码，这里为4095 (0b111111111111=0xfff=4095)
     private final static long sequenceMask = -1L ^ (-1L << sequenceBits);
     /* 上次生产id时间戳 */
     private static long lastTimestamp = -1L;

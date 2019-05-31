@@ -20,8 +20,69 @@ ly-order订单微服务
 关于接口返回，一定要是用rest风格返回，即：不能出现动词，修改：post，删除：delete等。返回状态码也要遵循rest风格如404、500等。  
 写接口时，一定要按照接口文档来写，一般都是有框架人员来写。  
 获取接口请求参数时：@CookieValue("LY_TOKEN") String token获取cookie。@RequestParam("username") String username获取请求参数username。@PathVariable("data") String data获取请求参数@GetMapping("/check/{data}/{type}")的data值。  
-            
 
+## -----------------Swagger-UI-----------------
+没有API文档工具之前，大家都是手写API文档的，在什么地方书写的都有，而且API文档没有统一规范和格式，每个公司都不一样。这无疑给开发带来了灾难。  
+OpenAPI规范（OpenAPI Specification 简称OAS）是Linux基金会的一个项目，试图通过定义一种用来描述API格式或API定义的语言，来规范RESTful服务开发过程。  
+OpenAPI是一个编写API文档的规范，然而如果手动去编写OpenAPI规范的文档，是非常麻烦的。而Swagger就是一个实现了OpenAPI规范的工具集。            
+官网：https://swagger.io/  
+
+```
+<dependency>    
+     <groupId>io.springfox</groupId>
+     <artifactId>springfox-swagger2</artifactId>
+     <version>2.8.0</version>
+ </dependency>
+ <dependency>
+     <groupId>io.springfox</groupId>
+     <artifactId>springfox-swagger-ui</artifactId>
+     <version>2.8.0</version>
+ </dependency>
+ ```
+```
+//配置
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .host("http://order.leyou.com")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.leyou.order.controller"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("乐优商城订单系统")
+                .description("乐优商城订单系统接口文档")
+                .version("1.0")
+                .build();
+    }
+}
+``` 
+在controller的每个handler上添加接口说明注解  
+```
+/**
+ @Api：修饰整个类，描述Controller的作用
+ @ApiOperation：描述一个类的一个方法，或者说一个接口
+ @ApiParam：单个参数描述
+ @ApiModel：用对象来接收参数
+ @ApiProperty：用对象接收参数时，描述对象的一个字段
+ @ApiResponse：HTTP响应其中1个描述
+ @ApiResponses：HTTP响应整体描述
+ @ApiIgnore：使用该注解忽略这个API
+ @ApiError ：发生错误返回的信息
+ @ApiImplicitParam：一个请求参数
+ @ApiImplicitParams：多个请求参数
+ */
+```
+启动服务去访问http://localhost:8089/swagger-ui.html即可查看接口文档。  
+
+  
 ## -----------------插件----------------- 
 通用mapper和分页助手也很好用，只要是单个数据库查询的，都可以使用通用mapper    
 mapper接口继承的类有很多，现在举个例子：IdListMapper（根据批量id查询、删除），Mapper（通用mapper，包含各种普通新增改查）,InsertListMapper(批量新增)。
@@ -74,8 +135,8 @@ CORS原理，分为简单请求和特殊请求。
 ik分词器"analyzer": "ik_smart"用以人性化分类，而ik_max_word则细分。elasticsearch并且支持http的rest风格访问。   
 
 elasticsearch需要创建索引，其实类似mysql   
-
-             
+  
+浏览器访问Kibana：http://localhost:5601/  
   
 ## -----------------Thymeleaf-----------------
 静态页面，因只涉及后台，这里暂不多说明，可以自行查看ly-page源码    

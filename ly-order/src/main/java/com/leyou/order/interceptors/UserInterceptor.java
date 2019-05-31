@@ -40,12 +40,11 @@ public class UserInterceptor implements HandlerInterceptor {
             //解析token
             UserInfo user = JwtUtils.getInfoFromToken(token, prop.getPublicKey());
             //传递user
-            //request.setAttribute("user", user);
             tl.set(user);
             //放行
             return true;
         } catch (Exception e) {
-            log.error("[购物车服务],用户未登录。", e);
+            log.error("[订单服务],用户未登录。", e);
             return false;
         }
     }

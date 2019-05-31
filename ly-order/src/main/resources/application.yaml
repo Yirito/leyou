@@ -23,3 +23,6 @@ ly:
   jwt:
     pubKeyPath: C:/dlion/rsa/rsa.pub # 公钥地址
     cookieName: LY_TOKEN
+  worker: #雪花算法所需要的自定义id
+    workerId: 1
+    dataCenterId: 1
