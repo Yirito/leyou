@@ -36,6 +36,8 @@ public enum ExceptionEnum {
     INVALID_USER_PASSWORD(400, "用户名或密码错误"),
     CREATE_TOKEN_ERROR(500, "用户凭证生成失败"),
     UNAUTHORIZED(403, "未授权"),
+
+    CART_NOT_FOUND(404, "购物车为空"),
     ;
     private int code;
     private String msg;
