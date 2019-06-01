@@ -1,25 +1,33 @@
 package com.leyou.order.service;
 
 import com.leyou.auth.entity.UserInfo;
+import com.leyou.common.enums.ExceptionEnum;
+import com.leyou.common.exception.LyException;
 import com.leyou.common.utils.IdWorker;
 import com.leyou.item.pojo.Sku;
 import com.leyou.order.client.AddressClient;
 import com.leyou.order.client.GoodsClient;
 import com.leyou.order.dto.AddressDto;
-import com.leyou.order.dto.CartDto;
+import com.leyou.common.dto.CartDto;
 import com.leyou.order.dto.OrderDto;
+import com.leyou.order.enums.OrderStatusEnum;
 import com.leyou.order.interceptors.UserInterceptor;
-import com.leyou.order.mapper.OrderDeatilMapper;
+import com.leyou.order.mapper.OrderDetailMapper;
 import com.leyou.order.mapper.OrderMapper;
 import com.leyou.order.mapper.OrderStatusMapper;
 import com.leyou.order.pojo.Order;
+import com.leyou.order.pojo.OrderDetail;
+import com.leyou.order.pojo.OrderStatus;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class OrderService {
 
@@ -27,7 +35,7 @@ public class OrderService {
     private OrderMapper orderMapper;
 
     @Autowired
-    private OrderDeatilMapper deatilMapper;
+    private OrderDetailMapper detailMapper;
 
     @Autowired
     private OrderStatusMapper orderStatusMapper;
@@ -38,6 +46,7 @@ public class OrderService {
     @Autowired
     private GoodsClient goodsClient;
 
+    @Transactional
     public Long createOrder(OrderDto orderDto) {
 
         // 1 新增订单
@@ -66,15 +75,67 @@ public class OrderService {
         order.setReceiverZip(address.getZipCode());
 
         // 1.4 金额
-        List<CartDto> cartDtos = orderDto.getCarts();
+        //把cartDTO转为一个map，key是sku的id，值是num
+        Map<Long, Integer> numMap = orderDto.getCarts().stream()
+                .collect(Collectors.toMap(CartDto::getSkuId, CartDto::getNum));
+        //获取所有sku的id
+        Set<Long> ids = numMap.keySet();
+        //把set的ids转为list ：new ArrayList<>(ids))，然后根据ids查询数据库
+        List<Sku> skus = goodsClient.querySkuBySpuIds(new ArrayList<>(ids));
 
-        List<Long> ids = cartDtos.stream().map(CartDto::getSkuId).collect(Collectors.toList());
-        List<Sku> skuList = goodsClient.querySkuBySpuIds(ids);
+        //准备orderDetail集合
+        List<OrderDetail> details = new ArrayList<>();
+
+        long totalPay = 0L;
+        for (Sku sku : skus) {
+            //计算商品总价
+            totalPay += sku.getPrice() * numMap.get(sku.getId());
+
+            //封装orderDetail
+            OrderDetail detail = new OrderDetail();
+            detail.setImage(StringUtils.substringBefore(sku.getImages(), ","));
+            detail.setNum(numMap.get(sku.getId()));
+            detail.setOrderId(orderId);
+            detail.setOwnSpec(sku.getOwnSpec());
+            detail.setPrice(sku.getPrice());
+            detail.setTitle(sku.getTitle());
+            details.add(detail);
+        }
+
+        order.setTotalPay(totalPay);
+        //实付金额：总金额+邮费-优惠金额（这里0）
+        order.setActualPay(totalPay + order.getPostFee() - 0);
+
+        // 1.5 order写入数据库
+        int count = orderMapper.insertSelective(order);
+        if (count != 1) {
+            log.error("[创建订单功能] 创建订单失败,orderId:{}", orderId);
+            throw new LyException(ExceptionEnum.CREATE_ORDER_ERROR);
+        }
+
         // 2 新增订单详情
+        count = detailMapper.insertList(details);
+        if (count != details.size()) {
+            log.error("[创建订单功能] 创建订单失败,orderId:{}", orderId);
+            throw new LyException(ExceptionEnum.CREATE_ORDER_ERROR);
+        }
 
         // 3 新增订单状态
+        OrderStatus orderStatus = new OrderStatus();
+        orderStatus.setCreateTime(order.getCreateTime());
+        orderStatus.setOrderId(orderId);
+        //因为数字太多，很多人不认识1、2、3对应的是什么，所以弄枚举。枚举加了desc描述，可以不加，加了让别人知道是什么来的
+        orderStatus.setStatus(OrderStatusEnum.UN_PAY.value());
+        count = orderStatusMapper.insertSelective(orderStatus);
+        if (count != details.size()) {
+            log.error("[创建订单功能] 创建订单失败,orderId:{}", orderId);
+            throw new LyException(ExceptionEnum.CREATE_ORDER_ERROR);
+        }
 
         // 4 减库存
-        return null;
+        List<CartDto> cartDTOS = orderDto.getCarts();
+        goodsClient.decreaseStock(cartDTOS);
+
+        return orderId;
     }
 }

@@ -2,6 +2,7 @@ package com.leyou.item.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.leyou.common.dto.CartDto;
 import com.leyou.common.enums.ExceptionEnum;
 import com.leyou.common.exception.LyException;
 import com.leyou.common.vo.PageResult;
@@ -260,5 +261,31 @@ public class GoodsSpuService {
         }
         loadStockInSku(skuList, ids);
         return skuList;
+    }
+
+    @Transactional
+    public void decreaseStock(List<CartDto> carts) {
+        for (CartDto cart : carts) {
+            //查询库存
+            //判断库存是否充足
+
+            /**
+             * 不能使用上面的逻辑，举个例子：
+             * stock =1
+             * if stock >= carts.getNum 执行减
+             *
+             * 但一旦高并发，就会有线程安全问题。
+             * 太多人同时访问这个，导致所有if都成立，这时stock还是1，而你已经执行减了，库存已经超卖了。
+             * 可以使用分布式锁，但不建议，这样这里就是单线程了。
+             *
+             * 我们可以在sql语句上价格where条件即可，where stock > 1
+             */
+
+            //减库存
+            int count = stockMapper.decreaseStock(cart.getSkuId(), cart.getNum());
+            if (count != 1) {
+                throw new LyException(ExceptionEnum.STOCK_NOT_ENOUGH);
+            }
+        }
     }
 }

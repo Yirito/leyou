@@ -1,5 +1,6 @@
 package com.leyou.item.web;
 
+import com.leyou.common.dto.CartDto;
 import com.leyou.common.vo.PageResult;
 import com.leyou.item.pojo.Sku;
 import com.leyou.item.pojo.Spu;
@@ -100,7 +101,19 @@ public class GoodsSpuController {
      * @return
      */
     @GetMapping("spu/{id}")
-    public ResponseEntity<Spu> querySpuById(@PathVariable("id") Long id){
+    public ResponseEntity<Spu> querySpuById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(goodsSpuService.querySpuById(id));
+    }
+
+    /**
+     * 减库存
+     *
+     * @param carts
+     * @return
+     */
+    @PostMapping("stock/decrease")
+    public ResponseEntity<Void> decreaseStock(@RequestBody List<CartDto> carts) {
+        goodsSpuService.decreaseStock(carts);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

@@ -30,6 +30,7 @@ public enum ExceptionEnum {
     GOODS_SAVE_ERROR(500, "新增商品失败"),
     GOODS_UPDATE_ERROR(500, "更新商品失败"),
     GOODS_ID_CANNOT_BE_NULL(400, "商品id不能为空"),
+    STOCK_NOT_ENOUGH(500,"库存不足"),
 
     INVALID_USER_DATA_TYPE(400, "用户数据类型无效"),
     INVALID_VERIFY_CODE(400, "无效验证码"),
@@ -38,6 +39,8 @@ public enum ExceptionEnum {
     UNAUTHORIZED(403, "未授权"),
 
     CART_NOT_FOUND(404, "购物车为空"),
+
+    CREATE_ORDER_ERROR(500, "创建订单失败"),
     ;
     private int code;
     private String msg;

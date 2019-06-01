@@ -13,7 +13,7 @@ public class OrderStatus {
     @Id
     private Long orderId;
 
-    private Integer status;
+    private Integer status;//订单状态
 
     private Date createTime;//创建时间
 

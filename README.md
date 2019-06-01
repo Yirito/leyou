@@ -250,6 +250,7 @@ spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可
 
 @Controller//如果是RestController是把返回结果按照json处理，这是普通的controller      
 
+  //synchronized锁，只能允许一个线程通过。也就同一个时间只有一个人访问这个方法。  
 
 打包过程：打开右边的Maven Projects =》Lifecycle =》install 即可打包成jar。然后上传到服务器或Nginx，使用命令java -jar ***.jar即可，不用tomcat，已经内置了tomcat。    
 
