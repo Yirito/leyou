@@ -134,6 +134,7 @@ public class OrderService {
 
         // 4 减库存
         List<CartDto> cartDTOS = orderDto.getCarts();
+        //这里采用同步减库存：远程调用。而不是异步，事务MQ。因为同步如果失败事务会回滚，但异步失败不会回滚。
         goodsClient.decreaseStock(cartDTOS);
 
         return orderId;

@@ -2,20 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a49285e1-1a9f-4a01-aa18-5f0671f17be2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ly-item/ly-item-service/src/test/java/com/leyou/item/service/GoodsSpuServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/enums/OrderStatusEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-common/src/main/java/com/leyou/common/enums/ExceptionEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-common/src/main/java/com/leyou/common/enums/ExceptionEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-item/ly-item-interface/src/main/java/com/leyou/item/api/GoodsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-item/ly-item-interface/src/main/java/com/leyou/item/api/GoodsApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-item/ly-item-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ly-item/ly-item-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-item/ly-item-service/src/main/java/com/leyou/item/mapper/StockMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-item/ly-item-service/src/main/java/com/leyou/item/mapper/StockMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-item/ly-item-service/src/main/java/com/leyou/item/service/GoodsSpuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-item/ly-item-service/src/main/java/com/leyou/item/service/GoodsSpuService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-item/ly-item-service/src/main/java/com/leyou/item/web/GoodsSpuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-item/ly-item-service/src/main/java/com/leyou/item/web/GoodsSpuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/dto/CartDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-common/src/main/java/com/leyou/common/dto/CartDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/dto/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/mapper/OrderDeatilMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/mapper/OrderDetailMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/pojo/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/pojo/OrderStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/service/OrderService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/ly-registry/target/" />
@@ -104,7 +90,7 @@
         <counts>
           <entry key="dummy" value="11" />
           <entry key="html" value="563" />
-          <entry key="java" value="31549" />
+          <entry key="java" value="31605" />
           <entry key="json" value="28" />
           <entry key="md" value="8181" />
           <entry key="xml" value="953" />
@@ -115,7 +101,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="HTML" value="562" />
-          <entry key="JAVA" value="31548" />
+          <entry key="JAVA" value="31604" />
           <entry key="JSON" value="29" />
           <entry key="Markdown" value="8181" />
           <entry key="PLAIN_TEXT" value="11" />
@@ -134,8 +120,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/service/OrderService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="132" column="9" selection-start-line="132" selection-start-column="9" selection-end-line="132" selection-end-column="9" />
+            <state relative-caret-position="313">
+              <caret line="136" column="60" selection-start-line="136" selection-start-column="60" selection-end-line="136" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -715,7 +701,7 @@
     <property name="SearchEverywhereHistoryKey" value="buildZuul&#9;PSI&#9;JAVA://org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper#buildZuulRequestHeaders&#10;zuulfi&#9;PSI&#9;JAVA://com.netflix.zuul.ZuulFilter&#10;application&#9;FILE&#9;file://D:/java/Project/leyou/ly-registry/src/main/resources/application.yaml&#10;thymeleafa&#9;PSI&#9;JAVA://org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration&#10;thymeleafviewre&#9;PSI&#9;JAVA://org.thymeleaf.spring5.view.ThymeleafViewResolver" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559370154345" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559370507583" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="extract.method.default.visibility" value="private" />
@@ -998,7 +984,7 @@
       <workItem from="1559199032275" duration="10584000" />
       <workItem from="1559268388137" duration="4334000" />
       <workItem from="1559286054255" duration="7515000" />
-      <workItem from="1559357398172" duration="6576000" />
+      <workItem from="1559357398172" duration="6929000" />
     </task>
     <servers />
   </component>
@@ -1035,7 +1021,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="245828000" />
+    <option name="totallyTimeSpent" value="246181000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1514,8 +1500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ly-order/src/main/java/com/leyou/order/service/OrderService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="132" column="9" selection-start-line="132" selection-start-column="9" selection-end-line="132" selection-end-column="9" />
+        <state relative-caret-position="313">
+          <caret line="136" column="60" selection-start-line="136" selection-start-column="60" selection-end-line="136" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
