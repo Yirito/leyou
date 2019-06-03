@@ -20,6 +20,8 @@ zuul:
     search-service: /search/** #讲搜索微服务映射到/search/**
     user-service: /user/** #讲搜索微服务映射到/user/**
     auth-service: /auth/** # 授权中心微服务
+    cart-service: /cart/** #购物车微服务
+    order-service: /order/** #订单微服务
   add-host-header: true #添加host头信息
   sensitive-headers: #放行所有敏感头 不填写即可。
 hystrix:
@@ -40,9 +42,10 @@ ly:
     cookieName: LY_TOKEN
   filter: #过滤鉴权放行白名单
     allowPaths:
-      - /api/auth
-      - /api/search
-      - /api/user/register
-      - /api/user/check
-      - /api/user/code
-      - /api/item #这个微服务是暂时的，生产时有些是不能放的
+    - /api/auth
+    - /api/search
+    - /api/user/register
+    - /api/user/check
+    - /api/user/code
+    - /api/item #这个微服务是暂时的，生产时有些是不能放的
+    - /api/order
