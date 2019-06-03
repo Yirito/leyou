@@ -18,6 +18,7 @@ import com.leyou.order.mapper.OrderStatusMapper;
 import com.leyou.order.pojo.Order;
 import com.leyou.order.pojo.OrderDetail;
 import com.leyou.order.pojo.OrderStatus;
+import com.leyou.order.wxpay.PayHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class OrderService {
 
     @Autowired
     private GoodsClient goodsClient;
+
+    @Autowired
+    private PayHelper payHelper;
 
     @Transactional
     public Long createOrder(OrderDto orderDto) {
@@ -164,5 +168,23 @@ public class OrderService {
         }
         order.setOrderStatus(orderStatus);
         return order;
+    }
+
+    public String createPayUrl(Long orderId) {
+        //查询订单
+        Order order = queryOrderById(orderId);
+        //判断订单状态
+        Integer status = order.getOrderStatus().getStatus();
+        if (status != OrderStatusEnum.UN_PAY.value()) {
+            //订单状态异常
+            throw new LyException(ExceptionEnum.ORDER_STATUS_ERROR);
+        }
+        //支付金额
+        Long actualPay = order.getActualPay();
+        //商品描述
+        OrderDetail detail = order.getOrderDetails().get(0);
+        String desc = detail.getTitle();
+
+        return payHelper.createPayUrl(orderId, actualPay, desc);
     }
 }
