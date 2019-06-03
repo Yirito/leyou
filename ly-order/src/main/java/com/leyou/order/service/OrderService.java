@@ -99,6 +99,7 @@ public class OrderService {
             detail.setOrderId(orderId);
             detail.setOwnSpec(sku.getOwnSpec());
             detail.setPrice(sku.getPrice());
+            detail.setSkuId(sku.getId());
             detail.setTitle(sku.getTitle());
             details.add(detail);
         }
@@ -117,7 +118,7 @@ public class OrderService {
         // 2 新增订单详情
         count = detailMapper.insertList(details);
         if (count != details.size()) {
-            log.error("[创建订单功能] 创建订单失败,orderId:{}", orderId);
+            log.error("[创建订单功能] 创建订单详情失败,orderId:{}", orderId);
             throw new LyException(ExceptionEnum.CREATE_ORDER_ERROR);
         }
 
@@ -128,8 +129,8 @@ public class OrderService {
         //因为数字太多，很多人不认识1、2、3对应的是什么，所以弄枚举。枚举加了desc描述，可以不加，加了让别人知道是什么来的
         orderStatus.setStatus(OrderStatusEnum.UN_PAY.value());
         count = orderStatusMapper.insertSelective(orderStatus);
-        if (count != details.size()) {
-            log.error("[创建订单功能] 创建订单失败,orderId:{}", orderId);
+        if (count != 1) {
+            log.error("[创建订单功能] 创建订单状态失败,orderId:{}", orderId);
             throw new LyException(ExceptionEnum.CREATE_ORDER_ERROR);
         }
 
@@ -150,7 +151,7 @@ public class OrderService {
         }
         //查询订单详情
         OrderDetail detail = new OrderDetail();
-        detail.setId(id);
+        detail.setOrderId(id);
         List<OrderDetail> details = detailMapper.select(detail);
         if (CollectionUtils.isEmpty(details)) {
             throw new LyException(ExceptionEnum.ORDER_DETAIL_NOT_FOUND);
