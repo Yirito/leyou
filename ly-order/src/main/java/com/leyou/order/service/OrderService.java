@@ -11,6 +11,7 @@ import com.leyou.order.dto.AddressDto;
 import com.leyou.common.dto.CartDto;
 import com.leyou.order.dto.OrderDto;
 import com.leyou.order.enums.OrderStatusEnum;
+import com.leyou.order.enums.PayStateEnum;
 import com.leyou.order.interceptors.UserInterceptor;
 import com.leyou.order.mapper.OrderDetailMapper;
 import com.leyou.order.mapper.OrderMapper;
@@ -217,12 +218,20 @@ public class OrderService {
 
         Order order = orderMapper.selectByPrimaryKey(orderId);
 
-        // 3.4 金额校验
+        // 3.4 获取订单金额
         //todo 这里验证回调数据时，支付金额使用1分进行验证，后续使用实际支付金额验证
         if (totalFee != 1/*order.getActualPay()*/) {
             log.error("【微信支付回调】支付回调返回数据不正确");
             throw new LyException(ExceptionEnum.WX_PARAM_INVALID);
         }
+
+//        //判断支付状态
+//        OrderStatus orderStatus = orderStatusMapper.selectByPrimaryKey(Long.valueOf(outTradeNo));
+//
+//        if (orderStatus.getStatus() != OrderStatusEnum.PAYED.value()) {
+//            //支付成功
+//            return;
+//        }
 
         // 4 修改订单状态
         OrderStatus status = new OrderStatus();
@@ -235,5 +244,32 @@ public class OrderService {
         }
 
         log.info("[订单回调]，订单支付成功，订单编号:{}", orderId);
+
+//        //修改支付日志状态
+//        PayLog payLog = payLogMapper.selectByPrimaryKey(order.getOrderId());
+//        //未支付的订单才需要更改
+//        if (payLog.getStatus() == PayStateEnum.NOT_PAY.getValue()) {
+//            payLog.setOrderId(order.getOrderId());
+//            payLog.setBankType(bankType);
+//            payLog.setPayTime(new Date());
+//            payLog.setTransactionId(transactionId);
+//            payLog.setStatus(PayStateEnum.SUCCESS.getValue());
+//            payLogMapper.updateByPrimaryKeySelective(payLog);
+//        }
+
+    }
+
+    public PayStateEnum queryOrderState(Long orderId) {
+        //查询订单状态
+        OrderStatus orderStatus = orderStatusMapper.selectByPrimaryKey(orderId);
+        Integer status = orderStatus.getStatus();
+        //判断是否支付
+        if (status != OrderStatusEnum.UN_PAY.value()) {
+            //如果已支付，真的是已支付
+            return PayStateEnum.SUCCESS;
+        }
+
+        //如果未支付，但其实不一定是未支付，必须去微信查询支付状态
+        return payHelper.queryPayState(orderId);
     }
 }

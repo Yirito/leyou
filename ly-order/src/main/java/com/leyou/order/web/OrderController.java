@@ -37,8 +37,25 @@ public class OrderController {
         return ResponseEntity.ok(orderService.queryOrderById(id));
     }
 
+    /**
+     * 创建支付连接
+     *
+     * @param orderId
+     * @return
+     */
     @GetMapping("/url/{id}")
     public ResponseEntity<String> createPayUrl(@PathVariable("id") Long orderId) {
         return ResponseEntity.ok(orderService.createPayUrl(orderId));
+    }
+
+    /**
+     * 查询支付状态
+     *
+     * @param orderId
+     * @return
+     */
+    @GetMapping("/state/{id}")
+    public ResponseEntity<Integer> queryOrderState(@PathVariable("id") Long orderId) {
+        return ResponseEntity.ok(orderService.queryOrderState(orderId).getValue());//返回枚举，一般不要直接返回1  2  3
     }
 }

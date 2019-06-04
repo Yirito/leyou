@@ -26,7 +26,7 @@ ly:
   worker: #雪花算法所需要的自定义id
     workerId: 1
     dataCenterId: 1
-  pay:
+  pay: #微信支付
     appId: wx8397f8696b538317
     mchId: 1473426802
     key: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
