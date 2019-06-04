@@ -5,10 +5,16 @@ import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.leyou.common.enums.ExceptionEnum;
 import com.leyou.common.exception.LyException;
+import com.leyou.order.enums.OrderStatusEnum;
+import com.leyou.order.mapper.OrderMapper;
+import com.leyou.order.pojo.Order;
+import com.leyou.order.pojo.OrderStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -45,21 +51,11 @@ public class PayHelper {
             //利用wxPay工具，完成下单
             Map<String, String> result = wxPay.unifiedOrder(data);
 
-            //通信失败
-            String returnCode = result.get("return_code");
-            if (WXPayConstants.FAIL.equals(returnCode)) {
-                log.error("【微信下单】与微信通信失败，失败信息：{}", result.get("return_msg"));
-                throw new LyException(ExceptionEnum.WX_PAY_ORDER_FAIL);
-            }
+            //判断是否通信失败
+            isSuccess(result);
 
-            //下单失败
-            String resultCode = result.get("result_code");
-            if (WXPayConstants.FAIL.equals(resultCode)) {
-                log.error("【微信下单】微信下单业务，错误码：{}，错误信息：{}",
-                        result.get("err_code"), result.get("err_code_des"));
-                throw new LyException(ExceptionEnum.WX_PAY_ORDER_FAIL);
-            }
-
+            //检验签名
+            isValidSign(result);
 
             //下单成功，获取支付连接
             String url = result.get("code_url");
@@ -70,5 +66,50 @@ public class PayHelper {
             return null;
         }
     }
+
+    /**
+     * 校验数据
+     *
+     * @param result
+     */
+    public void isSuccess(Map<String, String> result) {
+        //通信失败
+        String returnCode = result.get("return_code");
+        if (WXPayConstants.FAIL.equals(returnCode)) {
+            log.error("【微信下单】与微信通信失败，失败信息：{}", result.get("return_msg"));
+            throw new LyException(ExceptionEnum.WX_PAY_ORDER_FAIL);
+        }
+
+        //下单失败
+        String resultCode = result.get("result_code");
+        if (WXPayConstants.FAIL.equals(resultCode)) {
+            log.error("【微信下单】微信下单业务，错误码：{}，错误信息：{}",
+                    result.get("err_code"), result.get("err_code_des"));
+            throw new LyException(ExceptionEnum.WX_PAY_ORDER_FAIL);
+        }
+    }
+
+    /**
+     * 校验签名
+     *
+     * @param result
+     */
+    public void isValidSign(Map<String, String> result) {
+        try {
+            // 重新生成签名
+            boolean boo1 = WXPayUtil.isSignatureValid(result, config.getKey(), WXPayConstants.SignType.HMACSHA256);
+            boolean boo2 = WXPayUtil.isSignatureValid(result, config.getKey(), WXPayConstants.SignType.MD5);
+
+            // 和传过来的签名进行比较
+            // 因为不知道返回来的签名是md5还是sha256，所以只要两个签名中没有一个是对的就认为是假的。
+            if (!boo1 && !boo2) {
+                throw new LyException(ExceptionEnum.WX_SIGN_INVALID);
+            }
+        } catch (Exception e) {
+            log.error("【微信支付】检验签名失败，数据：{}", result);
+            throw new LyException(ExceptionEnum.WX_SIGN_INVALID);
+        }
+    }
+
 
 }

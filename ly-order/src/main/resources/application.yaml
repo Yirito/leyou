@@ -32,4 +32,4 @@ ly:
     key: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
     connectTimeoutMs: 5000
     readTimeoutMs: 10000
-    notifyUrl: http://h7rmfa.natappfree.cc/wxpay/notify
+    notifyUrl: http://h7rmfa.natappfree.cc/wxpay/notify #这里因为没有外网地址，所以本机设置了个内网穿透。

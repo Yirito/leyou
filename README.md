@@ -232,7 +232,11 @@ cookie被盗用怎么办：可以在cookie加入身份识别，如网卡、mac�
 
 # -----------------传递对象-----------------
 在同一个tomcat中，单个用户访问时，所有的request都是，可以request.setAttribute("user", user);传递user，但spring不推荐这么做，可以使用private static final ThreadLocal<UserInfo> tl = new ThreadLocal<>();  
-因为不但request是共享的，线程thread也是共享的，而ThreadLocal存储的是map，key是线程，value是对象。直接tl.set(user);，key不用写，因为他会自己取当前线程。               
+因为不但request是共享的，线程thread也是共享的，而ThreadLocal存储的是map，key是线程，value是对象。直接tl.set(user);，key不用写，因为他会自己取当前线程。  
+
+# -----------------内网穿透----------------- 
+可以让你的内网放外网访问。natapp这个是有免费和收费的，用这个简单。网上还有其他内网穿透的软件和系统，还有教人怎么搭建的。  
+用内网穿透，这个相当于你本地电脑可以有个被外网访问的设置，相当于有个服务器吧。                
       
 # -----------------后记----------------- 
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   

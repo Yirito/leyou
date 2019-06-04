@@ -187,4 +187,53 @@ public class OrderService {
 
         return payHelper.createPayUrl(orderId, actualPay, desc);
     }
+
+    /**
+     * 处理回调
+     *
+     * @param result 接收数据
+     */
+    public void handleNotify(Map<String, String> result) {
+        // 1 校验数据
+        payHelper.isSuccess(result);
+        // 2 校验签名
+        payHelper.isValidSign(result);
+        // 3 校验金额
+        // 3.1 解析数据
+        String totalFeeStr = result.get("total_fee");  //订单金额
+        String outTradeNo = result.get("out_trade_no");  //订单编号
+        String transactionId = result.get("transaction_id");  //商户订单号
+        String bankType = result.get("bank_type");  //银行类型
+        if (StringUtils.isBlank(totalFeeStr) || StringUtils.isBlank(outTradeNo)
+                || StringUtils.isBlank(transactionId) || StringUtils.isBlank(bankType)) {
+            log.error("【微信支付回调】支付回调返回数据不正确");
+            throw new LyException(ExceptionEnum.WX_PARAM_INVALID);
+        }
+
+        // 3.2 获取结果中的金额
+        Long totalFee = Long.valueOf(totalFeeStr);
+        // 3.3 获取订单id
+        Long orderId = Long.valueOf(outTradeNo);
+
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+
+        // 3.4 金额校验
+        //todo 这里验证回调数据时，支付金额使用1分进行验证，后续使用实际支付金额验证
+        if (totalFee != 1/*order.getActualPay()*/) {
+            log.error("【微信支付回调】支付回调返回数据不正确");
+            throw new LyException(ExceptionEnum.WX_PARAM_INVALID);
+        }
+
+        // 4 修改订单状态
+        OrderStatus status = new OrderStatus();
+        status.setOrderId(orderId);
+        status.setStatus(OrderStatusEnum.PAYED.value());
+        status.setPaymentTime(new Date());
+        int count = orderStatusMapper.updateByPrimaryKeySelective(status);
+        if (count != 1) {
+            throw new LyException(ExceptionEnum.UPDATE_ORDER_STATUS_ERROR);
+        }
+
+        log.info("[订单回调]，订单支付成功，订单编号:{}", orderId);
+    }
 }
