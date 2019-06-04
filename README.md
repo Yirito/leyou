@@ -1,7 +1,40 @@
 ﻿# 乐优商城
 
-服务框架为SpringBoot分布式微服务  
-===================================
+-----------------项目介绍-----------------
+===================================  
+以Spring的SpringCloud的为核心的，基于Rest风格的微服务架构。    
+可靠：之所以选择SpringCloud是因为Spring平台一直致力于Java技术的研究，平台更加可靠稳定，毕竟dubbo有被阿里“抛弃过”的黑历史。    
+方便：因为是Spring的“亲生儿子”，所以SpringBoot的支持非常完美，简化了系统搭建的工作。  
+易上手：大多数程序员接触框架都是从Spring开始的。你叫熟悉Spring。  
+
+####项目架构：
+该项目前后端分离。  
+前端：后台管理和门户系统。  
+后端：后端采用基于SpringCloud的微服务架构，统一对外提供Rest风格接口，无论是后台管理还是门户系统都共享这些微服务接口，而微服务中通过JWT方式来识别用户身份，开放不同接口。  
+  
+ 
+# -----------------技术解读-----------------
+①、利用Node.js以及Vue.js技术栈，实现前后端分离开发。  
+②、利用SpringCloud技术栈，实现真正的微服务实战开发。  
+③、贴近真实的电商数据库设计，解决全品类电商的SPU和SKU管理问题。  
+④、基于FastDFS解决大数据量的分布式文件存储问题。  
+⑤、基于Elasticsearch高级聚合功能，实现商品的只能过滤搜索。  
+⑥、基于Elasticsearch高级聚合功能，实现销售业务的复杂统计及报表输出。  
+⑦、基于LocalStorage实现离线客户端购物车，减轻服务端压力。  
+⑧、基于JWT技术及RSA非对称加密实现真正无状态的单点登录。  
+⑨、结合JWT和RSA非对称加密，自定义Feign过滤器实现自动化服务间鉴权，解决服务对外暴露的安全问题。  
+⑩、基于阿里大于实现SMS功能，解决电商短信通知问题。  
+⑾、基于RabbitMQ实现可靠消息服务，解决服务间通信问题。  
+⑿、基于RabbitMQ实现可靠消息服务，解决分布式事务问题。  
+⒀、使用微信SDK实现微信扫码支付，符合主流付款方式。  
+⒁、基于Redis搭建高可用集群，实现可靠缓存服务即热点数据保存。  
+⒂、基于Redis和Mq来应对高可用高并发的秒杀场景。  
+⒃、基于MyCat实现数据库的读写分离和分库分表。  
+⒄、基于Thymeleaf实现页面模板和静态化，提高页面相应速度和并发能力。  
+⒅、基于Ngix实现初步的请求负载均衡和请求限流。  
+⒆、基于可靠消息系统实现分布式系统的柔性事务处理。  
+
+# -----------------微服务-----------------
 
 ly-gateway网关，拦截、鉴权等。    
 ly-registry注册中心  
@@ -15,6 +48,67 @@ ly-user用户中心，包括用户注册、修改用户信息等。
 ly-auth授权中心，用户登陆。用户用来鉴权和授权的。有rsa加密和jwt协议。  
 ly-cart购物车微服务。之所以购物车数据存在redis，是因为读写频率快。  
 ly-order订单微服务          
+
+     
+## -----------------基本项目搭建----------------- 
+按照module、微服务形式进行学习cloud，从SpringCloudDemo学习。  
+
+要在父项目新增module，若想不麻烦，还需配置maven父目录。  
+使用springboot架构，具体学习可以看前面项目  
+因为使用module，所以可以使用idea右边maven projects 点一下刷新，右下角会弹出一个框，点击show run dashboard。（或者直接点下面的Run Dashboard）
+
+## -----------------高可用eureka，即使挂掉一台还有其他注册中心-----------------     
+要想在idea测试多个注册中心（eurekaServer）需要复制一份启动项（就是启动按钮左边的配置），然后随便命名为第二个便可。  
+原理是，修改端口10086，连接地址改为http://127.0.0.1:10087/eureka，先启动第一个，然后再修改端口10087，连接地址为10086。利用先后顺序启动可以启动两个不同端口。  
+（另一方法可以在启动配置时，（该例子是user-service）在VM option设置-Dserver.port=8082参数，覆盖原来8081端口。）  
+注意，因为是多台，每个服务需要填多一个地址，例如：defaultZone: http://127.0.0.1:10086/eureka,http://127.0.0.1:10087/eureka（一台就不用使用符号,）  
+两个注册中心就填要连接的地址（1个地址），因为互相连接，三个注册中心要填（2个其他注册中心地址），同理。  
+总结：也就是consumer连接10086和10087，user-service也是连接10086和10087，注册中心10086和10087相互连接。当注册中心其中一台挂掉的时候，consumer和user-service还是能正常连接！（默认每30秒扫描一次）
+
+## -----------------负载均衡Ribbon-----------------  
+顾名思义，就是从多个服务中找一个合适的进行连接，分担压力。  
+在http请求那里添加注解@LoadBalanced（RestTemplate 默认httpUrlConnection连接）  
+然后String url = "http://user-service/user/" + id;  
+String user = restTemplate.getForObject(url, String.class);  
+在http连接那里请求地址为eureka服务地址即可（user-service）负载均衡默认采用轮询服务。
+
+## -----------------服务保护Hystrix熔断器-----------------
+当多个客户端访问时，如果某个服务线程满或访问超时，返回提示（服务器正忙）并且服务降级，防止服务雪崩。
+//@EnableCircuitBreaker//服务熔断和hystrix  
+//@EnableDiscoveryClient//增加客户端注解 eureka  
+//@SpringBootApplication//启动类  
+
+@SpringCloudApplication//相当于增加上面三个注解，因为微服务eureka一般包含这三个（启动类加）
+
+@DefaultProperties(defaultFallback = "queryByIdFallBack")设置返回超时错误提示，返回的错误方法为queryByIdFallBack()  
+需要在方法上@HystrixCommand  
+
+@HystrixCommand(commandProperties = {  
+配置超时时长，name在HystrixCommandProperties找。或在yaml配置。  
+@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "3000")}) 
+
+重点是熔断器（默认开启），当最近请求20都超过50%请求超时（默认），开启熔断，此时所有都不能访问。熔断开启计时5秒（默认），5秒后半开状态，放行一部分，若还是超时，则继续熔断，一直循环，直到放行通过时，关闭熔断器。异常也会触发熔断。
+
+## -----------------Feign远程调用-----------------  
+Feign用来封装远程调用，看起来更优雅，此时RestTemplate不需要了。因为还包含了负载均衡Ribbon和熔断Hystrix，所以不需要再引用这两个包，不过玩法不同了，简便了。(黑马引入了Hystrix包，因为他们不知道启动类入口注解开启了Hystrix，实际入口注解不开启这个，就可以不需要引入这个包。但我们还是学他的吧)  
+@EnableFeignClients//启动入口开启feign  
+然后编写接口  
+@FeignClient("user-service")//去eureka根据服务名获取ip进行远程调用  
+public interface UserClient {  
+    @GetMapping("user/{id}")//路径  
+    User queryById(@PathVariable("id") Long id);} //返回值
+
+## -----------------Zuul网关-----------------  
+认证、安全、限流、负载等等。他已经内置了负载均衡Ribbon和Hystrix保护机制  
+zuul默认给每一个eureka配置了一个映射路径，可以自定义配置。可以去除不需要的微服务网址，不然每一个微服务都可以用来访问。  
+可配置路由前缀和取消路由前缀。这些都需要在yaml配置。 
+ 
+zuul的权限，也称为过滤器，需要实现方法ZuulFilter。  
+filterType（过滤器类型）  
+filterOrder（过滤器顺序）  
+shouldFilter（要不要过滤）  
+run（过滤逻辑）  
+具体看一下过滤器执行生命周期  
 
 ## -----------------接口-----------------
 关于接口返回，一定要是用rest风格返回，即：不能出现动词，修改：post，删除：delete等。返回状态码也要遵循rest风格如404、500等。  
@@ -92,15 +186,6 @@ lombok很好用
 @Getter//为非final字段添加  
 @NoArgsConstructor //自动生成无参数构造函数。  
 @AllArgsConstructor //自动生成全参数构造函数。 
-
-## -----------------注意-----------------  
-记住扫描controller包的时候，spring启动函数放到包外，不然扫不到。  
-
-自定义属性时，先在application.yaml设置属性格式，如：ly: sms: test1:123。然后创建一个类如TestProperties，@ConfigurationProperties(prefix = "ly.sms")//获取自定义属性，@Data。记得，这个类的属性字段必须和自定义名字相同，private String test1    
-获取时@Component，@EnableConfigurationProperties(TestProperties.class)，然后注入这个类TestProperties，就可以获取这个类的自定义属性名了。  
-或者：@Value("${ly.jwt.cookieName}")  
-private String cookieName;  也可以获取自定义属性。      
-   
 
 ## -----------------文件上传-----------------   
 ①、所有请求经过网关时，springMVC会先预处理，并缓存，对普通请求没什么影响，但对上传文件会造成网络负担，在高并发时，有可能造成网络阻塞。所以在请求路径前加一个/zuul，这个默认值是可以更改的
@@ -236,9 +321,26 @@ cookie被盗用怎么办：可以在cookie加入身份识别，如网卡、mac�
 
 # -----------------内网穿透----------------- 
 可以让你的内网放外网访问。natapp这个是有免费和收费的，用这个简单。网上还有其他内网穿透的软件和系统，还有教人怎么搭建的。  
-用内网穿透，这个相当于你本地电脑可以有个被外网访问的设置，相当于有个服务器吧。                
+用内网穿透，这个相当于你本地电脑可以有个被外网访问的设置，相当于有个服务器吧。   
+
+# -----------------docker以及打包-----------------
+项目部署在docker。docker是一个容器、虚拟机。每个微服务有个独立的docker，这样就可以分开部署了。      
+这里和后记的的打包做解释：install是包含package，一般是package。install打包是会装到本地仓库，而package不会。但记得，打包之前把test的都删掉或者打包时忽略test单元测试。  
+因为这里使用module，相互之间依赖了，所以打包相应的微服务时，需要File->Project Structure选择对应的微服务，然后查看Dependencies把引用的本地依赖也勾选。这样打包的时候就会把它们打包进去。  
+因为这里采用的父工程，所以每个微服务都引用了父工程的plugin依赖，所以到时候打包的时候，需要把父工程那个plugin依赖引到每个微服务去，当然前提是你需要plugin插件的话。  
+
+## -----------------注意-----------------  
+记住扫描controller包的时候，spring启动函数放到包外，不然扫不到。  
+
+自定义属性时，先在application.yaml设置属性格式，如：ly: sms: test1:123。然后创建一个类如TestProperties，@ConfigurationProperties(prefix = "ly.sms")//获取自定义属性，@Data。记得，这个类的属性字段必须和自定义名字相同，private String test1    
+获取时@Component，@EnableConfigurationProperties(TestProperties.class)，然后注入这个类TestProperties，就可以获取这个类的自定义属性名了。  
+或者：@Value("${ly.jwt.cookieName}")  
+private String cookieName;  也可以获取自定义属性。      
+   
       
 # -----------------后记----------------- 
+####打包过程：打开右边的Maven Projects =》Lifecycle =》install 即可打包成jar。然后上传到服务器或Nginx，使用命令java -jar ***.jar即可，不用tomcat，已经内置了tomcat。  
+
 多活用StringUtils.isNotBlank(key)和CollectionUtils.isEmpty(list)，一个是lang3的，一个是springframework的   
 StringUtils.join拼接字符串 ,Arrays.asList(spu.getCid1(), spu.getCid2(), spu.getCid3())加入List,  
 
@@ -256,81 +358,16 @@ spuList.stream().map(searchService::buildGoods).collect(Collectors.toList());可
 
   //synchronized锁，只能允许一个线程通过。也就同一个时间只有一个人访问这个方法。  
 
-打包过程：打开右边的Maven Projects =》Lifecycle =》install 即可打包成jar。然后上传到服务器或Nginx，使用命令java -jar ***.jar即可，不用tomcat，已经内置了tomcat。    
-
+解决分布式事务的有：2PC、3PC、TCC补偿性事务、基于可靠消息的最终一致性事务。    
 
 CTRL+ALT+B查看接口实现。CTRL+SHIFT+U转大写字母。  
-     
-SpringCloud  
-==================================  
-按照module、微服务形式进行学习cloud，从SpringCloudDemo学习。  
 
-要在父项目新增module，若想不麻烦，还需配置maven父目录。  
-使用springboot架构，具体学习可以看前面项目  
-因为使用module，所以可以使用idea右边maven projects 点一下刷新，右下角会弹出一个框，点击show run dashboard。（或者直接点下面的Run Dashboard）
-
-# -----------------项目介绍-----------------  
-核心是高并发   
- 
-## -----------------高可用eureka，即使挂掉一台还有其他注册中心-----------------     
-要想在idea测试多个注册中心（eurekaServer）需要复制一份启动项（就是启动按钮左边的配置），然后随便命名为第二个便可。  
-原理是，修改端口10086，连接地址改为http://127.0.0.1:10087/eureka，先启动第一个，然后再修改端口10087，连接地址为10086。利用先后顺序启动可以启动两个不同端口。  
-（另一方法可以在启动配置时，（该例子是user-service）在VM option设置-Dserver.port=8082参数，覆盖原来8081端口。）  
-注意，因为是多台，每个服务需要填多一个地址，例如：defaultZone: http://127.0.0.1:10086/eureka,http://127.0.0.1:10087/eureka（一台就不用使用符号,）  
-两个注册中心就填要连接的地址（1个地址），因为互相连接，三个注册中心要填（2个其他注册中心地址），同理。  
-总结：也就是consumer连接10086和10087，user-service也是连接10086和10087，注册中心10086和10087相互连接。当注册中心其中一台挂掉的时候，consumer和user-service还是能正常连接！（默认每30秒扫描一次）
-
-## -----------------负载均衡Ribbon-----------------  
-顾名思义，就是从多个服务中找一个合适的进行连接，分担压力。  
-在http请求那里添加注解@LoadBalanced（RestTemplate 默认httpUrlConnection连接）  
-然后String url = "http://user-service/user/" + id;  
-String user = restTemplate.getForObject(url, String.class);  
-在http连接那里请求地址为eureka服务地址即可（user-service）负载均衡默认采用轮询服务。
-
-## -----------------服务保护Hystrix熔断器-----------------
-当多个客户端访问时，如果某个服务线程满或访问超时，返回提示（服务器正忙）并且服务降级，防止服务雪崩。
-//@EnableCircuitBreaker//服务熔断和hystrix  
-//@EnableDiscoveryClient//增加客户端注解 eureka  
-//@SpringBootApplication//启动类  
-
-@SpringCloudApplication//相当于增加上面三个注解，因为微服务eureka一般包含这三个（启动类加）
-
-@DefaultProperties(defaultFallback = "queryByIdFallBack")设置返回超时错误提示，返回的错误方法为queryByIdFallBack()  
-需要在方法上@HystrixCommand  
-
-@HystrixCommand(commandProperties = {  
-配置超时时长，name在HystrixCommandProperties找。或在yaml配置。  
-@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "3000")}) 
-
-重点是熔断器（默认开启），当最近请求20都超过50%请求超时（默认），开启熔断，此时所有都不能访问。熔断开启计时5秒（默认），5秒后半开状态，放行一部分，若还是超时，则继续熔断，一直循环，直到放行通过时，关闭熔断器。异常也会触发熔断。
-
-## -----------------Feign-----------------  
-Feign用来封装远程调用，看起来更优雅，此时RestTemplate不需要了。因为还包含了负载均衡Ribbon和熔断Hystrix，所以不需要再引用这两个包，不过玩法不同了，简便了。(黑马引入了Hystrix包，因为他们不知道启动类入口注解开启了Hystrix，实际入口注解不开启这个，就可以不需要引入这个包。但我们还是学他的吧)  
-@EnableFeignClients//启动入口开启feign  
-然后编写接口  
-@FeignClient("user-service")//去eureka根据服务名获取ip进行远程调用  
-public interface UserClient {  
-    @GetMapping("user/{id}")//路径  
-    User queryById(@PathVariable("id") Long id);} //返回值
-
-## -----------------Zuul网关-----------------  
-认证、安全、限流、负载等等。他已经内置了负载均衡Ribbon和Hystrix保护机制  
-zuul默认给每一个eureka配置了一个映射路径，可以自定义配置。可以去除不需要的微服务网址，不然每一个微服务都可以用来访问。  
-可配置路由前缀和取消路由前缀。这些都需要在yaml配置。 
- 
-zuul的权限，也称为过滤器，需要实现方法ZuulFilter。  
-filterType（过滤器类型）  
-filterOrder（过滤器顺序）  
-shouldFilter（要不要过滤）  
-run（过滤逻辑）  
-具体看一下过滤器执行生命周期  
-
-# -----------------总结-----------------  
-eureka注册中心、ribbon负载均衡、hystrix熔断保护、feign远程调用、zuul网关。  
 运维需要的，没用到，但项目部署需要用到，自行学习：  
 spring-cloud-config：统一配置中心，需要配合git  
 spring-cloud-bus：消息总线  
 spring-cloud-stream：消息通信  
 spring-cloud-hystrix-dashboard：容错统计，形成图形化界面  
-spring-cloud-sleuth：链路追踪 结合zipkin 也是图形化界面
+spring-cloud-sleuth：链路追踪 结合zipkin 也是图形化界面  
+
+
   
