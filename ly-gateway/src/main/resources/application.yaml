@@ -22,7 +22,7 @@ zuul:
     auth-service: /auth/** # 授权中心微服务
     cart-service: /cart/** #购物车微服务
     order-service: /order/** #订单微服务
-  add-host-header: true #添加host头信息
+  add-host-header: true #添加host头信息,要想认证的时候返回token在cookie，这两个必须加
   sensitive-headers: #放行所有敏感头 不填写即可。
 hystrix:
   command:

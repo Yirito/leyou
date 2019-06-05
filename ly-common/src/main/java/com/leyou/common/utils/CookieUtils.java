@@ -82,11 +82,13 @@ public final class CookieUtils {
             return this;
         }
 
+        //编码，默认utf-8
         public CookieBuilder charset(String charset) {
             this.charset = charset;
             return this;
         }
 
+        //防止通过JS获取和修改
         public CookieBuilder httpOnly() {
             this.httpOnly = true;
             return this;

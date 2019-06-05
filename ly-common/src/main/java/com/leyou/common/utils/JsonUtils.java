@@ -21,6 +21,12 @@ public class JsonUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
+    /**
+     * 序列化
+     *
+     * @param obj 需要转换的Bean
+     * @return 把Bean转String
+     */
     public static String toString(Object obj) {
         if (obj == null) {
             return null;
@@ -36,6 +42,14 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * 反序列化
+     *
+     * @param json   需要转换的String
+     * @param tClass 转成需要的bean的字节码
+     * @param <T>
+     * @return 把String转成Bean
+     */
     public static <T> T toBean(String json, Class<T> tClass) {
         try {
             return mapper.readValue(json, tClass);
@@ -45,6 +59,14 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * 转集合
+     *
+     * @param json   需要转换的String（json）
+     * @param eClass 转成需要的bean的字节码
+     * @param <E>
+     * @return 把json转成list对象
+     */
     public static <E> List<E> toList(String json, Class<E> eClass) {
         try {
             return mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, eClass));
@@ -54,6 +76,16 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * 转map
+     *
+     * @param json   需要转换的String（json）
+     * @param kClass Map的key的字节码
+     * @param vClass Map的Value的字节码
+     * @param <K>
+     * @param <V>
+     * @return 把json转成map对象
+     */
     public static <K, V> Map<K, V> toMap(String json, Class<K> kClass, Class<V> vClass) {
         try {
             return mapper.readValue(json, mapper.getTypeFactory().constructMapType(Map.class, kClass, vClass));
@@ -63,6 +95,14 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * 复杂的序列化
+     *
+     * @param json
+     * @param type
+     * @param <T>
+     * @return
+     */
     public static <T> T nativeRead(String json, TypeReference<T> type) {
         try {
             return mapper.readValue(json, type);

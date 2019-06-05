@@ -8,7 +8,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.List;
 
-//数据库没有这个表
 @Data
 @Table(name = "tb_spec_group")
 public class SpecGroup {
